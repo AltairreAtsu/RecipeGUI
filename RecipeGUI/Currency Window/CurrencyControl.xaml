@@ -11,6 +11,11 @@
 		<local:SuggestionBox x:Name="CurrenyNameSuggestion" Width="102" VerticalAlignment="Center" Margin="0,16"/>
 		<Label Content="Amount" VerticalAlignment="Center" Margin="0"/>
 		<TextBox x:Name="AmountTextField" VerticalAlignment="Center" MinWidth="50" Text="0"  />
-		<Button x:Name="RemoveControlButton" VerticalAlignment="Center" Content="-" Width="20" Click="RemoveControlButton_Click"/>
+		<Button x:Name="RemoveControlButton" VerticalAlignment="Center" Width="20" Click="RemoveControlButton_Click" Margin="0,12">
+			<Grid Margin="0,-3,0,0">
+				<Image Source="buttonsquare.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+				<Label Content="-" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+		</Button>
 	</StackPanel>
 </UserControl>

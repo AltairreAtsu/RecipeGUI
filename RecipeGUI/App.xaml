@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:RecipeGUI"
              StartupUri="RecipeEditorWindow.xaml">
     <Application.Resources>
-         
-    </Application.Resources>
+		<ResourceDictionary Source="resources/StarboundTheme.xaml"/>
+	</Application.Resources>
 </Application>

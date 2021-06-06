@@ -105,7 +105,7 @@ namespace RecipeGUI
 
 		private void SetTarget(TextBlock newTarget)
 		{
-			newTarget.Background = Brushes.PeachPuff;
+			newTarget.Background = Brushes.LightBlue;
 		}
 		private void ClearPreviousTarget()
 		{

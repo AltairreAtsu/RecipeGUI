@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeGUI"
         mc:Ignorable="d"
+		Style="{StaticResource StarboundWindow}"
 		Closing="Window_Closing"
         Title="CurrencyWindow" Height="450" Width="320">
 	<StackPanel>
 		<DockPanel Height="38">
 			<Label Content="Currencies:" VerticalAlignment="Center"/>
-			<Button x:Name="AddCurrencyButton" Content="Add Currency" Width="97" HorizontalAlignment="Right" VerticalAlignment="Center" Height="23" Click="AddCurrencyButton_Click"/>
+			<Button x:Name="AddCurrencyButton" Width="97" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Click="AddCurrencyButton_Click">
+				<Grid>
+					<Image Source="button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+					<Label Content="Add Currency" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				</Grid>
+			</Button>
 		</DockPanel>
 		<ScrollViewer Height="375">
 			<StackPanel x:Name="CurrencyControlsStackPanel">

@@ -10,6 +10,11 @@
 		<local:SuggestionBox x:Name="InputItemSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
 		<Label Content="Count" Height="28" VerticalAlignment="Center" Margin="0,11"/>
 		<TextBox x:Name="CountField" Height="28" Text="0" VerticalAlignment="Center" Width="35" Margin="0,11" MaxLines="1"/>
-		<Button x:Name="RemoveButton" Content="-" Height="30" VerticalAlignment="Center" Width="29" HorizontalAlignment="Center" Margin="3,10,0,10" Click="Button_Click"/>
+		<Button x:Name="RemoveButton" Height="30" VerticalAlignment="Center" Width="29" HorizontalAlignment="Center" Margin="3,10,0,10" Click="Button_Click">
+			<Grid>
+				<Image Source="resources/buttonsquare.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+				<Label Content="-" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Grid>
+		</Button>
 	</DockPanel>
 </UserControl>
