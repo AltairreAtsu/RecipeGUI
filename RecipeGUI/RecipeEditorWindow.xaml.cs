@@ -171,6 +171,7 @@ namespace RecipeGUI
 
 		private void OpenCurrencyManager_Click(object sender, RoutedEventArgs e)
 		{
+			if (currencyWindow != null) return;
 			currencyWindow = new CurrencyWindow();
 			currencyWindow.mainWindow = this;
 			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
@@ -181,6 +182,7 @@ namespace RecipeGUI
 		public void setCurrencyDictionary(Dictionary<string, int> currencyInputs)
 		{
 			this.currencyInputs = currencyInputs;
+			currencyWindow = null;
 		}
 	}
 }

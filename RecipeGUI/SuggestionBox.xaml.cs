@@ -88,8 +88,11 @@ namespace RecipeGUI
 				}
 			}
 			SuggestionsStack.Height = SuggestionsStack.Children.Count * 22;
-			if(!SugestionStackIsEmpty)
-			SetTarget((TextBlock)SuggestionsStack.Children[0]);
+			if (!SugestionStackIsEmpty)
+			{
+				SetTarget((TextBlock)SuggestionsStack.Children[0]);
+				ScalePopup();
+			}
 			targetIndex = 0;
 		}
 
@@ -160,6 +163,20 @@ namespace RecipeGUI
 				return;
 			}
 			CloseSuggestionBox();
+		}
+
+		private void ScalePopup()
+		{
+			double width = SuggestionTextField.Width;
+			var children = SuggestionsStack.Children;
+			foreach(UIElement child in children)
+			{
+				TextBlock tb = (TextBlock)child;
+				double difference = tb.Width.CompareTo(width);
+				if (difference > 0) width = tb.Width;
+			}
+
+			SuggestionScroller.Width = width;
 		}
 	}
 }
