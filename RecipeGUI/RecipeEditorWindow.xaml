@@ -1,0 +1,55 @@
+﻿<Window x:Class="RecipeGUI.RecipeEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeGUI"
+        mc:Ignorable="d"
+        Title="Recipe Editor" Height="450" Width="800"
+		MouseDown="root_MouseDown">
+	<Canvas Name="root">
+		<StackPanel Height="325" Width="367" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="84">
+
+			<DockPanel Height="30">
+				<Label Content="Recipe Input:"/>
+				<Button Content="+" Height="25" VerticalAlignment="Bottom" Width="27" DockPanel.Dock="Right" Click="AddInputItem_Click" HorizontalContentAlignment="Center" RenderTransformOrigin="4.481,0.08" HorizontalAlignment="Right"/>
+			</DockPanel>
+			<ScrollViewer HorizontalAlignment="Left" Width="367" Margin="0" Height="296">
+				<StackPanel x:Name="Input_Stack_Panel" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="357"/>
+			</ScrollViewer>
+		</StackPanel>
+		<StackPanel Height="74" Canvas.Left="382" Canvas.Top="10" Width="326">
+			<Label Content="Recipe Output:"/>
+			<DockPanel HorizontalAlignment="Left" Height="50" LastChildFill="False" VerticalAlignment="Top" Width="325">
+				<Label Content="Item Name:" Height="28" VerticalAlignment="Center"/>
+				<local:SuggestionBox x:Name="OutputSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+				<Label Content="OutputCount" Height="28" VerticalAlignment="Center" Margin="0,11"/>
+				<TextBox x:Name="OutputItemCountField" Height="28" Text="0" VerticalAlignment="Center" Width="35" Margin="0,11" MaxLines="1"/>
+			</DockPanel>
+		</StackPanel>
+		<StackPanel Height="278" Canvas.Left="382" Canvas.Top="84" Width="326">
+			<DockPanel Height="30">
+				<Label Content="Crafting Groups:"/>
+				<Button Content="+" Height="25" VerticalAlignment="Bottom" Width="27" DockPanel.Dock="Right" Click="AddCraftingGroup_Click" HorizontalContentAlignment="Center" RenderTransformOrigin="4.481,0.08" HorizontalAlignment="Right"/>
+			</DockPanel>
+			<ScrollViewer Height="249">
+				<StackPanel x:Name="GroupsStackPanel" Height="50" Width="316" HorizontalAlignment="Left" VerticalAlignment="Top">
+				</StackPanel>
+			</ScrollViewer>
+		</StackPanel>
+		<DockPanel Height="49" LastChildFill="False" Canvas.Left="377" Canvas.Top="367" Width="405">
+			<Label Content="Output Path:" Height="27" VerticalAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Center"/>
+			<TextBox x:Name="OutputFilePathField" Height="18" VerticalAlignment="Center" Width="117" Margin="0,20,0,11" HorizontalAlignment="Left" MaxLines="1"/>
+			<Button Content="Locate Folder" Height="29" VerticalAlignment="Center" Width="79" Padding="1" Margin="3,15,0,5" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="LocateFolder_Click"/>
+			<Button Content="Generate" Height="29" VerticalAlignment="Center" Width="52" Padding="1" Margin="3,15,0,5" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Generate_Click"/>
+			<CheckBox x:Name="GeneratePatchCheckbox" Content="Patch" Height="29" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,15,0,5" Width="72"/>
+		</DockPanel>
+		<StackPanel Height="69" Canvas.Left="10" Canvas.Top="10" Width="367">
+			<Label Content="Currency Cost:"/>
+			<DockPanel Height="44" LastChildFill="False">
+				<Label Content="Currency Manger:" Height="24" VerticalAlignment="Center" Margin="0"/>
+				<Button Content="Open Manager" VerticalAlignment="Center" Click="OpenCurrencyManager_Click"/>
+			</DockPanel>
+		</StackPanel>
+	</Canvas>
+</Window>
