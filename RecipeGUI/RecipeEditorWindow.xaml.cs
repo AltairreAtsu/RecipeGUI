@@ -179,10 +179,14 @@ namespace RecipeGUI
 			currencyWindow.Show();
 		}
 
+		public void OnCurrencyWindowClose()
+		{
+			currencyWindow = null;
+		}
+
 		public void setCurrencyDictionary(Dictionary<string, int> currencyInputs)
 		{
 			this.currencyInputs = currencyInputs;
-			currencyWindow = null;
 		}
 	}
 }

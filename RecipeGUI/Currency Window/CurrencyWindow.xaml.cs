@@ -70,6 +70,7 @@ namespace RecipeGUI
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
+			mainWindow.OnCurrencyWindowClose();
 			Dictionary<string, int> currencyInputs = new Dictionary<string, int>();
 			if (currencyControls.Count == 0) return;
 			foreach(CurrencyControl control in currencyControls)
