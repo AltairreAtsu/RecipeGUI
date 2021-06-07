@@ -75,7 +75,8 @@
     <Compile Include="Data Scrubber\DatascrubberWindow.xaml.cs">
       <DependentUpon>DatascrubberWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ControlMenuOption.cs" />
+    <Compile Include="IControlMenuOption.cs" />
+    <Compile Include="IRecipeWindow.cs" />
     <Compile Include="ListLoader.cs" />
     <Compile Include="ControlMenuItem.xaml.cs">
       <DependentUpon>ControlMenuItem.xaml</DependentUpon>
@@ -87,8 +88,9 @@
     <Compile Include="GroupControl.xaml.cs">
       <DependentUpon>GroupControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RecipeJsonWriter.cs" />
+    <Compile Include="RecipeJsonHandler.cs" />
     <Compile Include="Data Scrubber\Scrubber.cs" />
+    <Compile Include="RecipeWindowWrapper.cs" />
     <Compile Include="SuggestionBox.xaml.cs">
       <DependentUpon>SuggestionBox.xaml</DependentUpon>
     </Compile>
@@ -171,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Currency Window\button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ControlMenuOptions\Other\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

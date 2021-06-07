@@ -8,22 +8,20 @@ using System.IO;
 
 namespace RecipeGUI
 {
-	class RecipeJsonWriter
+	class RecipeJsonHandler
 	{
 		public static bool WriteJson(string path, Recipe recipe, bool doPatch)
 		{
-			string completePath = path + "\\" + recipe.output.item + ".recipe";
-
 			JsonSerializerSettings settings = new JsonSerializerSettings();
 			settings.Formatting = Formatting.Indented;
 			settings.NullValueHandling = NullValueHandling.Ignore;
 			string jsonString = JsonConvert.SerializeObject(recipe, settings);
 			try
 			{
-				File.WriteAllText(completePath, jsonString);
+				File.WriteAllText(path, jsonString);
 				if (doPatch)
 				{
-					string patchPath = path + "\\player.config.patch";
+					string patchPath = Path.GetDirectoryName(path) + "\\player.config.patch";
 					if (File.Exists(patchPath))
 					{
 						List<string> contents = File.ReadAllLines(patchPath).ToList();
@@ -40,6 +38,20 @@ namespace RecipeGUI
 			catch
 			{
 				return false;
+			}
+		}
+
+		public static Recipe ReadJson(string path)
+		{
+			try
+			{
+				string jsonStirng = File.ReadAllText(path);
+				Recipe recipe = JsonConvert.DeserializeObject<Recipe>(jsonStirng);
+				return recipe;
+			}
+			catch
+			{
+				return null;
 			}
 		}
 	}

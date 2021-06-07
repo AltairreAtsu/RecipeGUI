@@ -1,4 +1,5 @@
 ﻿using System;
+using RecipeGUI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace RecipeGUI.ControlMenuOptions.File
 		
 		public void Execute()
 		{
-			throw new NotImplementedException();
+			RecipeEditorWindow.recipeWindow.ResetWindow();
 		}
 
 		public string GetName()

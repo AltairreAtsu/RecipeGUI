@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace RecipeGUI
 {
-	class Recipe
+	public class Recipe
 	{
 		public Dictionary<String, int> currencyInputs { get; set; }
 		public RecipeItem[] input { get; set; }
 		public RecipeItem output { get; set; }
 		public string[] groups { get; set; }
 	}
-	class RecipeItem
+	public class RecipeItem
 	{
 		public string item { get; set; }
 		public int count { get; set; }
