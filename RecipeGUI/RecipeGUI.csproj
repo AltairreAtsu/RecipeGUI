@@ -64,6 +64,7 @@
     <Compile Include="ControlMenuOptions\File\OpenFileOption.cs" />
     <Compile Include="ControlMenuOptions\File\SaveAsFileOption.cs" />
     <Compile Include="ControlMenuOptions\File\SaveFileOption.cs" />
+    <Compile Include="ControlMenuOptions\Other\CurrencyManagerOption.cs" />
     <Compile Include="Currency Window\CurrencyControl.xaml.cs">
       <DependentUpon>CurrencyControl.xaml</DependentUpon>
     </Compile>
@@ -90,7 +91,6 @@
     </Compile>
     <Compile Include="RecipeJsonHandler.cs" />
     <Compile Include="Data Scrubber\Scrubber.cs" />
-    <Compile Include="RecipeWindowWrapper.cs" />
     <Compile Include="SuggestionBox.xaml.cs">
       <DependentUpon>SuggestionBox.xaml</DependentUpon>
     </Compile>
@@ -162,20 +162,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="resources\button.png" />
-    <Resource Include="resources\buttonsquare.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Currency Window\buttonsquare.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Currency Window\button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ControlMenuOptions\Other\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

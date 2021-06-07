@@ -21,7 +21,10 @@ namespace RecipeGUI
 	public partial class CurrencyWindow : Window
 	{
 		private List<CurrencyControl> currencyControls = new List<CurrencyControl>();
-		private List<string> currencyStrings;
+		private List<string> currencySuggestionStrings;
+		private Dictionary<string, int> originalOutputs;
+		private bool SavingAndClosing = false;
+
 		public RecipeEditorWindow mainWindow;
 
 		public CurrencyWindow()
@@ -31,6 +34,7 @@ namespace RecipeGUI
 
 		public void RecoverState(Dictionary<string, int> currencyInputs)
 		{
+			originalOutputs = currencyInputs;
 			foreach(KeyValuePair<string, int> kvp in currencyInputs)
 			{
 				CurrencyControl control = AddCurrencyControl();
@@ -41,7 +45,7 @@ namespace RecipeGUI
 
 		public void SetCurrencyStrings(List<string> currencyStrings)
 		{
-			this.currencyStrings = currencyStrings;
+			this.currencySuggestionStrings = currencyStrings;
 		}
 
 		public CurrencyControl AddCurrencyControl()
@@ -50,7 +54,7 @@ namespace RecipeGUI
 			CurrencyControlsStackPanel.Children.Add(currencyControl);
 			currencyControls.Add(currencyControl);
 			currencyControl.currencyWindow = this;
-			currencyControl.CurrenyNameSuggestion.suggestionStrings = currencyStrings;
+			currencyControl.CurrenyNameSuggestion.suggestionStrings = currencySuggestionStrings;
 			CurrencyControlsStackPanel.Height += currencyControl.Height;
 			return currencyControl;
 		}
@@ -68,29 +72,99 @@ namespace RecipeGUI
 			AddCurrencyControl();
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		private ParsingResult ParseCurrencies()
 		{
-			mainWindow.OnCurrencyWindowClose();
-			Dictionary<string, int> currencyInputs = new Dictionary<string, int>();
-			if (currencyControls.Count == 0) return;
-			foreach(CurrencyControl control in currencyControls)
+			var currencyInputs = new Dictionary<string, int>();
+			var parsingResult = new ParsingResult();
+
+
+			if (currencyControls.Count == 0)
+			{
+				parsingResult.parsingFailed = false;
+				return parsingResult;
+			}
+			foreach (CurrencyControl control in currencyControls)
 			{
 				var input = control.GetCurrencyInput();
-				if(input.amount == null)
+				if (input.amount == null)
 				{
 					MessageBox.Show("Parsing Error! Amount of " + input.name + "not set to numerical value! Canceling Export.");
-					e.Cancel = true;
-					return;
+					parsingResult.parsingFailed = true;
+					return parsingResult;
 				}
 				if (currencyInputs.ContainsKey(input.name))
 				{
 					MessageBox.Show("Duplicate Currency name detected. Please ensure only one input exists for key " + input.name + ".");
-					e.Cancel = true;
-					return;
+					parsingResult.parsingFailed = true;
+					return parsingResult;
 				}
 				currencyInputs.Add(input.name, (int)input.amount);
 			}
-			mainWindow.setCurrencyDictionary(currencyInputs);
+			parsingResult.parsingFailed = false;
+			parsingResult.currencyInputs = currencyInputs;
+			return parsingResult;
 		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			mainWindow.OnCurrencyWindowClose();
+			if (SavingAndClosing)
+			{
+				return;
+			}
+			var parsingResult = ParseCurrencies();
+
+			if (parsingResult.parsingFailed)
+			{
+				var result = MessageBox.Show("Parsing data failed and has not been saved. Do you want to exit the window?", "Warning!", MessageBoxButton.YesNo);
+				if (result == MessageBoxResult.Yes)
+				{
+					return;
+				}
+				else
+				{
+					e.Cancel = true;
+				}
+			}
+
+			bool dataHasChanged =	(originalOutputs == null && parsingResult.currencyInputs != null) ||
+									(originalOutputs != null && parsingResult.currencyInputs == null) ||
+									(originalOutputs != null && !DictionariesAreEqual(originalOutputs, parsingResult.currencyInputs));
+			if (dataHasChanged)
+			{
+				var result = MessageBox.Show("You have unsaved changes, are you sure you want to close the window?", "Warning!", MessageBoxButton.YesNo);
+				if(result == MessageBoxResult.Yes)
+				{
+					return;
+				}
+				else
+				{
+					e.Cancel = true;
+				}
+			}
+		}
+
+		private void Done_Click(object sender, RoutedEventArgs e)
+		{
+			var parsingResult = ParseCurrencies();
+			if (parsingResult.currencyInputs == null)
+			{
+				return;
+			}
+			mainWindow.setCurrencyDictionary(parsingResult.currencyInputs);
+			SavingAndClosing = true;
+			Close();
+		}
+
+		private bool DictionariesAreEqual(Dictionary<string, int> dic1, Dictionary<string, int> dic2)
+		{
+			return dic1.Count == dic2.Count && !dic1.Except(dic2).Any();
+		}
+	}
+
+	public class ParsingResult
+	{
+		public Dictionary<string, int> currencyInputs;
+		public bool parsingFailed = false;
 	}
 }

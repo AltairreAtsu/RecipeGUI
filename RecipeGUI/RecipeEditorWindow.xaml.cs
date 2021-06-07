@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RecipeGUI.ControlMenuOptions.File;
+using RecipeGUI.ControlMenuOptions.Other;
 
 namespace RecipeGUI
 {
@@ -47,6 +48,7 @@ namespace RecipeGUI
 			OutputSuggestionField.suggestionStrings = listLoader.nameStrings;
 
 			SetupFileMenu();
+			SetupOtherMenu();
 		}
 
 		private void SetupFileMenu()
@@ -58,20 +60,13 @@ namespace RecipeGUI
 			list.Add(new SaveAsFileOption());
 			File_MenuItem.InitializeOptions(list);
 		}
-		
-		public void ResetWindow()
+		private void SetupOtherMenu()
 		{
-			RemoveAllInputElements();
-			RemoveAllGroupElements();
-			OutputSuggestionField.SuggestionTextField.Text = "";
-			OutputItemCountField.Text = "";
-
-			if(currencyWindow != null && currencyWindow.IsActive)
-				currencyWindow.Close();
-			currencyInputs = new Dictionary<string, int>();
-
-			loadedFilePath = null;
+			var list = new List<IControlMenuOption>();
+			list.Add(new CurrencyManagerOption());
+			Other_MenuItem.InitializeOptions(list);
 		}
+	
 
 		#region Input and Group Controls
 		private void AddInputItem_Click(object sender, RoutedEventArgs e)
@@ -195,15 +190,7 @@ namespace RecipeGUI
 			Keyboard.ClearFocus();
 		}
 
-		private void OpenCurrencyManager_Click(object sender, RoutedEventArgs e)
-		{
-			if (currencyWindow != null) return;
-			currencyWindow = new CurrencyWindow();
-			currencyWindow.mainWindow = this;
-			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
-			if (currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
-			currencyWindow.Show();
-		}
+
 
 		public void OnCurrencyWindowClose()
 		{
@@ -215,6 +202,31 @@ namespace RecipeGUI
 			this.currencyInputs = currencyInputs;
 		}
 
+		#region Interface Methods
+		public void ResetWindow()
+		{
+			RemoveAllInputElements();
+			RemoveAllGroupElements();
+			OutputSuggestionField.SuggestionTextField.Text = "";
+			OutputItemCountField.Text = "";
+
+			if (currencyWindow != null && currencyWindow.IsActive)
+				currencyWindow.Close();
+			currencyInputs = new Dictionary<string, int>();
+
+			loadedFilePath = null;
+		}
+
+		public void OpenCurrencyWindow()
+		{
+			if (currencyWindow != null) return;
+
+			currencyWindow = new CurrencyWindow();
+			currencyWindow.mainWindow = this;
+			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
+			if (currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
+			currencyWindow.Show();
+		}
 
 		public bool SaveRecipe()
 		{
@@ -278,5 +290,6 @@ namespace RecipeGUI
 
 			currencyInputs = recipe.currencyInputs;
 		}
+		#endregion
 	}
 }
