@@ -60,6 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ControlMenuOptions\File\NewFileOption.cs" />
+    <Compile Include="ControlMenuOptions\File\OpenFileOption.cs" />
+    <Compile Include="ControlMenuOptions\File\SaveAsFileOption.cs" />
+    <Compile Include="ControlMenuOptions\File\SaveFileOption.cs" />
     <Compile Include="Currency Window\CurrencyControl.xaml.cs">
       <DependentUpon>CurrencyControl.xaml</DependentUpon>
     </Compile>
@@ -71,7 +75,11 @@
     <Compile Include="Data Scrubber\DatascrubberWindow.xaml.cs">
       <DependentUpon>DatascrubberWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ControlMenuOption.cs" />
     <Compile Include="ListLoader.cs" />
+    <Compile Include="ControlMenuItem.xaml.cs">
+      <DependentUpon>ControlMenuItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recipe.cs" />
     <Compile Include="InputItemControl.xaml.cs">
       <DependentUpon>InputItemControl.xaml</DependentUpon>
@@ -95,6 +103,10 @@
     <Page Include="Data Scrubber\DatascrubberWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ControlMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecipeEditorWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,7 +160,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="resources\VT323-Regular.ttf" />
     <Resource Include="resources\button.png" />
     <Resource Include="resources\buttonsquare.png" />
   </ItemGroup>

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeGUI.ControlMenuOptions.File;
 
 namespace RecipeGUI
 {
@@ -38,6 +39,13 @@ namespace RecipeGUI
 			listLoader = new ListLoader();
 			listLoader.LoadNamesIntoLists();
 			OutputSuggestionField.suggestionStrings = listLoader.nameStrings;
+
+			var list = new List<IControlMenuOption>();
+			list.Add(new NewFileOption());
+			list.Add(new OpenFileOption());
+			list.Add(new SaveFileOption());
+			list.Add(new SaveAsFileOption());
+			File_MenuItem.InitializeOptions(list);
 		}
 
 		private void AddInputItem_Click(object sender, RoutedEventArgs e)
@@ -58,15 +66,17 @@ namespace RecipeGUI
 			GroupsStackPanel.Height += 50;
 			groupControls.Add(userControl);
 		}
-
-		private void LocateFolder_Click(object sender, RoutedEventArgs e)
+		public void RemoveInputElement(UIElement element)
 		{
-			FolderBrowserDialog browserDialog = new FolderBrowserDialog();
-			DialogResult result = browserDialog.ShowDialog();
-			if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(browserDialog.SelectedPath)){
-				OutputFilePathField.Text = browserDialog.SelectedPath;
-			}
-			
+			Input_Stack_Panel.Children.Remove(element);
+			Input_Stack_Panel.Height -= 50;
+			inputItemsControls.Remove((InputItemControl)element);
+		}
+		public void RemoveGroupElement(UIElement element)
+		{
+			GroupsStackPanel.Children.Remove(element);
+			GroupsStackPanel.Height -= 50;
+			groupControls.Remove((GroupControl)element);
 		}
 
 		private void Generate_Click(object sender, RoutedEventArgs e)
@@ -90,12 +100,13 @@ namespace RecipeGUI
 				recipe.currencyInputs = currencyInputs;
 			}
 
-			bool doPatch = (bool)GeneratePatchCheckbox.IsChecked;
-			bool sucess = RecipeJsonWriter.WriteJson(OutputFilePathField.Text, recipe, doPatch);
-			if (!sucess)
-			{
-				System.Windows.MessageBox.Show("Error Writing Json file, is the output path correctly formated?");
-			}
+			// TODO Redo Saving Logic
+//			bool doPatch = (bool)GeneratePatchCheckbox.IsChecked;
+//			bool sucess = RecipeJsonWriter.WriteJson(OutputFilePathField.Text, recipe, doPatch);
+//			if (!sucess)
+//			{
+//				System.Windows.MessageBox.Show("Error Writing Json file, is the output path correctly formated?");
+//			}
 		}
 
 		private string[] ParseGroups()
@@ -148,21 +159,6 @@ namespace RecipeGUI
 				return null;
 			}
 		}
-
-		public void RemoveInputElement(UIElement element)
-		{
-			Input_Stack_Panel.Children.Remove(element);
-			Input_Stack_Panel.Height -= 50;
-			inputItemsControls.Remove((InputItemControl)element);
-		}
-
-		public void RemoveGroupElement(UIElement element)
-		{
-			GroupsStackPanel.Children.Remove(element);
-			GroupsStackPanel.Height -= 50;
-			groupControls.Remove((GroupControl)element);
-		}
-
 
 		private void root_MouseDown(object sender, MouseButtonEventArgs e)
 		{

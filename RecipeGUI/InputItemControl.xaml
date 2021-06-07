@@ -7,14 +7,9 @@
              mc:Ignorable="d" Height="50" Width="325.333">
 	<DockPanel Height="50" LastChildFill="False" Width="325">
 		<Label Content="Item Name:" Height="28" VerticalAlignment="Center"/>
-		<local:SuggestionBox x:Name="InputItemSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
+		<local:SuggestionBox x:Name="InputItemSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="143" Margin="0,16"/>
 		<Label Content="Count" Height="28" VerticalAlignment="Center" Margin="0,11"/>
 		<TextBox x:Name="CountField" Height="28" Text="0" VerticalAlignment="Center" Width="35" Margin="0,11" MaxLines="1"/>
-		<Button x:Name="RemoveButton" Height="30" VerticalAlignment="Center" Width="29" HorizontalAlignment="Center" Margin="3,10,0,10" Click="Button_Click">
-			<Grid>
-				<Image Source="resources/buttonsquare.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-				<Label Content="-" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			</Grid>
-		</Button>
+		<Button x:Name="RemoveButton" Content="-" Height="30" VerticalAlignment="Center" Width="29" HorizontalAlignment="Center" Margin="3,10,0,10" Click="Button_Click"/>
 	</DockPanel>
 </UserControl>

@@ -6,76 +6,48 @@
         xmlns:local="clr-namespace:RecipeGUI"
         mc:Ignorable="d"
 		Style="{DynamicResource StarboundWindow}"
-        Title="Recipe Editor" Height="450" Width="800"
+		ResizeMode="NoResize"
+        Title="Recipe Editor" Height="424.001" Width="719"
 		MouseDown="root_MouseDown">
-	<Canvas Name="root">
-		<StackPanel Height="325" Width="367" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="84">
-
-			<DockPanel Height="30">
-				<Label Content="Recipe Input:"/>
-				<Button Height="25" VerticalAlignment="Bottom" Width="27" DockPanel.Dock="Right" Click="AddInputItem_Click" HorizontalContentAlignment="Center" RenderTransformOrigin="4.481,0.08" HorizontalAlignment="Right">
-					<Grid>
-						<Image Source="resources/buttonsquare.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-						<Label Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
-					</Grid>
-				</Button>
-			</DockPanel>
-			<ScrollViewer HorizontalAlignment="Left" Width="367" Margin="0" Height="296">
-				<StackPanel x:Name="Input_Stack_Panel" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="357"/>
-			</ScrollViewer>
-		</StackPanel>
-		<StackPanel Height="74" Canvas.Left="382" Canvas.Top="10" Width="326">
-			<Label Content="Recipe Output:"/>
-			<DockPanel HorizontalAlignment="Left" Height="50" LastChildFill="False" VerticalAlignment="Top" Width="325">
-				<Label Content="Item Name:" Height="28" VerticalAlignment="Center"/>
-				<local:SuggestionBox x:Name="OutputSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"/>
-				<Label Content="OutputCount" Height="28" VerticalAlignment="Center" Margin="0,11"/>
-				<TextBox x:Name="OutputItemCountField" Height="28" Text="0" VerticalAlignment="Center" Width="35" Margin="0,11" MaxLines="1"/>
-			</DockPanel>
-		</StackPanel>
-		<StackPanel Height="278" Canvas.Left="382" Canvas.Top="84" Width="326">
-			<DockPanel Height="30">
-				<Label Content="Crafting Groups:"/>
-				<Button Height="25" VerticalAlignment="Bottom" Width="27" DockPanel.Dock="Right" Click="AddCraftingGroup_Click" HorizontalContentAlignment="Center" RenderTransformOrigin="4.481,0.08" HorizontalAlignment="Right">
-					<Grid>
-						<Image Source="resources/buttonsquare.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-						<Label Content="+" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
-					</Grid>
-				</Button>
-			</DockPanel>
-			<ScrollViewer Height="249">
-				<StackPanel x:Name="GroupsStackPanel" Height="50" Width="316" HorizontalAlignment="Left" VerticalAlignment="Top">
-				</StackPanel>
-			</ScrollViewer>
-		</StackPanel>
-		<DockPanel Height="49" LastChildFill="False" Canvas.Left="377" Canvas.Top="367" Width="405">
-			<Label Content="Output Path:" Height="27" VerticalAlignment="Center" Margin="0,5,0,0" HorizontalAlignment="Center"/>
-			<TextBox x:Name="OutputFilePathField" Height="18" VerticalAlignment="Center" Width="117" Margin="0,20,0,11" HorizontalAlignment="Left" MaxLines="1"/>
-			<Button Height="29" VerticalAlignment="Center" Width="79" Padding="1" Margin="3,15,0,5" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="LocateFolder_Click">
-				<Grid>
-					<Image Source="resources/button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-					<Label Content="Locate Folder" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11"/>
-				</Grid>
-			</Button>
-			<Button Height="29" VerticalAlignment="Center" Width="52" Padding="1" Margin="3,15,0,5" HorizontalContentAlignment="Left" HorizontalAlignment="Center" Click="Generate_Click">
-				<Grid>
-					<Image Source="resources/button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-					<Label Content="Generate" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11"/>
-				</Grid>
-			</Button>
-			<CheckBox x:Name="GeneratePatchCheckbox" Content="Patch" Height="29" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,15,0,5" Width="72"/>
+	<StackPanel>
+		<DockPanel Background="#2C2C2C" LastChildFill="False">
+			<local:ControlMenuItem x:Name="File_MenuItem"  Content="File" Margin="10,0,0,0"/>
+			<local:ControlMenuItem x:Name="Other_MenuItem" Content="Other" Margin="20,0,0,0"/>
 		</DockPanel>
-		<StackPanel Height="69" Canvas.Left="10" Canvas.Top="10" Width="367">
-			<Label Content="Currency Cost:"/>
-			<DockPanel Height="44" LastChildFill="False">
-				<Label Content="Currency Manger:" Height="24" VerticalAlignment="Center" Margin="0"/>
-				<Button VerticalAlignment="Center" Click="OpenCurrencyManager_Click" Margin="0,5" Width="100">
-					<Grid>
-						<Image Source="resources/button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-						<Label Content="Open Manager" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-					</Grid>
-				</Button>
-			</DockPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="394*"/>
+				<ColumnDefinition Width="319*"/>
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Grid.Column="0" Margin="20,0,0,0">
+				<DockPanel LastChildFill="False">
+					<Label Content="Input Items:" FontSize="25"/>
+					<Button Content="+" FontSize="25" DockPanel.Dock="Right" MinWidth="35" Click="AddInputItem_Click"/>
+				</DockPanel>
+				<ScrollViewer Height="250" Background="#0E101B">
+					<StackPanel x:Name="Input_Stack_Panel">
+
+					</StackPanel>
+				</ScrollViewer>
+			</StackPanel>
+			<StackPanel Grid.Column="1" Margin="30,0,20,0">
+				<DockPanel LastChildFill="False">
+					<Label Content="Groups:" FontSize="25"/>
+					<Button Content="+" FontSize="25" DockPanel.Dock="Right" MinWidth="35" Click="AddCraftingGroup_Click"/>
+				</DockPanel>
+				<ScrollViewer Height="250" Background="#0E101B">
+					<StackPanel x:Name="GroupsStackPanel">
+
+					</StackPanel>
+				</ScrollViewer>
+			</StackPanel>
+		</Grid>
+		<StackPanel Orientation="Horizontal" Margin="20,20,0,0">
+			<Label Content="Output Item:" FontSize="20"/>
+			<local:SuggestionBox x:Name="OutputSuggestionField" Width="150" FontSize="20" VerticalAlignment="Center"/>
+			<Label Content="Count:" FontSize="20"/>
+			<TextBox x:Name="OutputItemCountField" FontSize="20" Width="100" VerticalAlignment="Center"/>
 		</StackPanel>
-	</Canvas>
+	</StackPanel>
 </Window>
