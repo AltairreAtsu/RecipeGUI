@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeGUI"
         mc:Ignorable="d"
-		Background=" #FF0C0C0C"
+		Closing="Window_Closing"
+		ResizeMode="NoResize"
+		Style="{DynamicResource StarboundWindow}"
         Title="Data Scrubber" Height="200" Width="600">
 	<StackPanel>
 		<Grid>
@@ -21,56 +23,13 @@
 
 			<Label Content="Target Mod Directory:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
 			<TextBox x:Name="ModDirectoryField" Grid.Column="1" Grid.Row="0" Margin="0,13"/>
-			<Button  Grid.Column="2" Grid.Row="0" Margin="20,7" Click="LocateModClick">
-				<Grid>
-					<Image Source="resources/button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-					<Label Content="Locate Mod" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-				</Grid>
-			</Button>
+			<Button Content="Locate Folder" Grid.Column="2" Grid.Row="0" Margin="20,7" Click="LocateModClick"/>
 
 			<Label Content="Output Folder:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
 			<TextBox x:Name="OutputFolderField" Grid.Column="1" Grid.Row="1" Margin="0,13"/>
-			<Button HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="20,7" Click="LocateOutputClick">
-				<Grid>
-					<Image Source="resources/button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-					<Label Content="Locate Folder" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-				</Grid>
-			</Button>
+			<Button Content="Locate Folder" Grid.Column="2" Grid.Row="1" Margin="20,7" Click="LocateOutputClick"/>
 		</Grid>
-		<DockPanel>
-			<Button x:Name="ScrubStartButton" Margin="230,10,230,0" Click="BeginScrubbingClick">
-				<Grid>
-					<Image Source="resources/Button.png" Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-					<Label Content="Begin Scrubbing" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-				</Grid>
-			</Button>
-		</DockPanel>
+		<Button Content="Begin Scrubbing" x:Name="ScrubStartButton"  Click="BeginScrubbingClick" HorizontalAlignment="Center" Height="30" Width="120" />
 		<TextBlock x:Name="ScrubbingStatusTextblock" Text="" Margin="10,0" HorizontalAlignment="Center"/>
 	</StackPanel>
-
-	<Window.Resources>
-		<Style TargetType="Label">
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="FontSize" Value="15"/>
-			<Setter Property="FontFamily" Value="/DatascrubberUI;component/resources/#VT323"/>
-		</Style>
-		<Style TargetType="TextBlock">
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="FontFamily" Value="/DatascrubberUI;component/resources/#VT323"/>
-		</Style>
-		<Style TargetType="TextBox">
-			<Setter Property="Background" Value="Black"/>
-			<Setter Property="Foreground" Value="White"/>
-			<Setter Property="BorderBrush" Value="Gray"/>
-			<Setter Property="FontFamily" Value="/DatascrubberUI;component/resources/#VT323"/>
-			<Setter Property="TextWrapping" Value="NoWrap"/>
-			<Setter Property="MaxLines" Value="1"/>
-		</Style>
-		<Style TargetType="Button">
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Foreground" Value="Transparent"/>
-			<Setter Property="BorderBrush" Value="Transparent"/>
-		</Style>
-	</Window.Resources>
 </Window>

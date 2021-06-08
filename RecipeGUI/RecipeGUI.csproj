@@ -65,6 +65,7 @@
     <Compile Include="ControlMenuOptions\File\SaveAsFileOption.cs" />
     <Compile Include="ControlMenuOptions\File\SaveFileOption.cs" />
     <Compile Include="ControlMenuOptions\Other\CurrencyManagerOption.cs" />
+    <Compile Include="ControlMenuOptions\Other\DataScrubberWindowOption.cs" />
     <Compile Include="ControlMenuOptions\Other\PreferencesWindowOption.cs" />
     <Compile Include="Currency Window\CurrencyControl.xaml.cs">
       <DependentUpon>CurrencyControl.xaml</DependentUpon>

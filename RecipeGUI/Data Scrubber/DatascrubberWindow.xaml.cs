@@ -23,6 +23,7 @@ namespace RecipeGUI
 	public partial class DatascrubberWindow : Window
 	{
 		private Scrubber scrubber;
+		public RecipeEditorWindow recipeEditorWindow;
 
 		public DatascrubberWindow()
 		{
@@ -101,6 +102,11 @@ namespace RecipeGUI
 		private void ScrubStatusEvent(string eventMessage)
 		{
 			ScrubbingStatusTextblock.Text = eventMessage;
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			recipeEditorWindow.OnDatascrubberWindowClose();
 		}
 	}
 }

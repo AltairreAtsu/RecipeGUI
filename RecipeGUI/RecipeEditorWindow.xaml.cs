@@ -37,6 +37,8 @@ namespace RecipeGUI
 		private PreferencesWindow preferencesWindow;
 		private PreferencesManager preferencesManager;
 
+		private DatascrubberWindow datascrubberWindow;
+
 		private string loadedFilePath;
 
 		public RecipeEditorWindow()
@@ -91,6 +93,7 @@ namespace RecipeGUI
 		{
 			var list = new List<IControlMenuOption>();
 			list.Add(new CurrencyManagerOption());
+			list.Add(new DataScrubberWindowOption());
 			list.Add(new PreferencesWindowOption());
 			Other_MenuItem.InitializeOptions(list);
 		}
@@ -229,6 +232,10 @@ namespace RecipeGUI
 		{
 			currencyWindow = null;
 		}
+		public void OnDatascrubberWindowClose()
+		{
+			datascrubberWindow = null;
+		}
 
 		public void setCurrencyDictionary(Dictionary<string, int> currencyInputs)
 		{
@@ -271,6 +278,15 @@ namespace RecipeGUI
 			preferencesWindow.recipeEditor = this;
 			preferencesWindow.Initalize();
 			preferencesWindow.Show();
+		}
+
+		public void OpenDatascrubberWindow()
+		{
+			if (datascrubberWindow != null) return;
+
+			datascrubberWindow = new DatascrubberWindow();
+			datascrubberWindow.recipeEditorWindow = this;
+			datascrubberWindow.Show();
 		}
 
 		public bool SaveRecipe()
