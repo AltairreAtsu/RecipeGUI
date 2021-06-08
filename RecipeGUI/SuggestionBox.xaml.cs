@@ -89,9 +89,10 @@ namespace RecipeGUI
 					foundSuggestions++;
 				}
 			}
-			SuggestionsStack.Height = SuggestionsStack.Children.Count * 22;
 			if (!SugestionStackIsEmpty)
 			{
+				TextBlock tb = (TextBlock)SuggestionsStack.Children[0];
+				SuggestionsStack.Height = SuggestionsStack.Children.Count * tb.Height;
 				SetTarget((TextBlock)SuggestionsStack.Children[0]);
 				ScalePopup();
 			}
