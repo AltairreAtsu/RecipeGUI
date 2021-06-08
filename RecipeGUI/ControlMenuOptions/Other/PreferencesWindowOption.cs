@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RecipeGUI.ControlMenuOptions.Other
 {
-	class PrefrencesWindowOption : IControlMenuOption
+	class PreferencesWindowOption : IControlMenuOption
 	{
-		private string name = "Prefrences";
+		private string name = "Preferences";
 
 		public void Execute()
 		{

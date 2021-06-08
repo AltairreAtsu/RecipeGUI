@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RecipeGUI.ControlMenuOptions.File;
 using RecipeGUI.ControlMenuOptions.Other;
+using RecipeGUI.Preferences_Window;
 
 namespace RecipeGUI
 {
@@ -33,7 +34,8 @@ namespace RecipeGUI
 		private Dictionary<string, int> currencyInputs;
 		private CurrencyWindow currencyWindow;
 		
-		private Prefrences prefrencesWindow;
+		private PreferencesWindow preferencesWindow;
+		private PreferencesManager preferencesManager;
 
 		private string loadedFilePath;
 
@@ -47,10 +49,33 @@ namespace RecipeGUI
 			currencyInputs = new Dictionary<string, int>();
 			listLoader = new ListLoader();
 			listLoader.LoadNamesIntoLists();
-			OutputSuggestionField.suggestionStrings = listLoader.nameStrings;
 
+			SetupPrefrences();
 			SetupFileMenu();
 			SetupOtherMenu();
+
+			OutputSuggestionField.suggestionStrings = listLoader.nameStrings;
+			OutputSuggestionField.prefs = preferencesManager;
+		}
+
+		private void SetupPrefrences()
+		{
+			preferencesManager = new PreferencesManager();
+			try
+			{
+				preferencesManager.ReadConfig();
+			}
+			catch
+			{
+				try
+				{
+					preferencesManager.WriteConfig();
+				}
+				catch
+				{
+					System.Windows.MessageBox.Show("Error! Could not load or create config!");
+				}
+			}
 		}
 
 		private void SetupFileMenu()
@@ -66,7 +91,7 @@ namespace RecipeGUI
 		{
 			var list = new List<IControlMenuOption>();
 			list.Add(new CurrencyManagerOption());
-			list.Add(new PrefrencesWindowOption());
+			list.Add(new PreferencesWindowOption());
 			Other_MenuItem.InitializeOptions(list);
 		}
 	
@@ -87,6 +112,7 @@ namespace RecipeGUI
 			InputItemControl userControl = new InputItemControl();
 			userControl.window = this;
 			userControl.InputItemSuggestionField.suggestionStrings = listLoader.nameStrings;
+			userControl.InputItemSuggestionField.prefs = preferencesManager;
 			userControl.InputItemSuggestionField.SuggestionTextField.Text = name;
 			userControl.CountField.Text = count.ToString();
 
@@ -100,6 +126,7 @@ namespace RecipeGUI
 			GroupControl userControl = new GroupControl();
 			userControl.window = this;
 			userControl.SuggesrionField.suggestionStrings = listLoader.categoryStrings;
+			userControl.SuggesrionField.prefs = preferencesManager;
 			userControl.SuggesrionField.SuggestionTextField.Text = name;
 
 			GroupsStackPanel.Children.Add(userControl);
@@ -195,7 +222,7 @@ namespace RecipeGUI
 
 		public void OnPrefrencesWindowClose()
 		{
-			prefrencesWindow = null;
+			preferencesWindow = null;
 		}
 
 		public void OnCurrencyWindowClose()
@@ -230,17 +257,20 @@ namespace RecipeGUI
 			currencyWindow = new CurrencyWindow();
 			currencyWindow.mainWindow = this;
 			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
+			currencyWindow.SetPreferences(preferencesManager);
 			if (currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
 			currencyWindow.Show();
 		}
 
 		public void OpenPrefrencesWindow()
 		{
-			if (prefrencesWindow != null) return;
+			if (preferencesWindow != null) return;
 
-			prefrencesWindow = new Prefrences();
-			prefrencesWindow.recipeEditor = this;
-			prefrencesWindow.Show();
+			preferencesWindow = new PreferencesWindow();
+			preferencesWindow.preferencesManager = preferencesManager;
+			preferencesWindow.recipeEditor = this;
+			preferencesWindow.Initalize();
+			preferencesWindow.Show();
 		}
 
 		public bool SaveRecipe()
@@ -273,9 +303,7 @@ namespace RecipeGUI
 			{
 				recipe.currencyInputs = currencyInputs;
 			}
-			// TODO implement Prefrence Window
-			bool doPatch = true;
-			bool sucess = RecipeJsonHandler.WriteJson(path, recipe, doPatch);
+			bool sucess = RecipeJsonHandler.WriteJson(path, recipe, preferencesManager.doCreatePatch, preferencesManager.doOverridePatchFile);
 			if (!sucess)
 			{
 				System.Windows.MessageBox.Show("Error Writing Json file, is the output path correctly formated?");

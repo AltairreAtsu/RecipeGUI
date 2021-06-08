@@ -10,7 +10,7 @@ namespace RecipeGUI
 {
 	class RecipeJsonHandler
 	{
-		public static bool WriteJson(string path, Recipe recipe, bool doPatch)
+		public static bool WriteJson(string path, Recipe recipe, bool doPatch, bool overridePatch)
 		{
 			JsonSerializerSettings settings = new JsonSerializerSettings();
 			settings.Formatting = Formatting.Indented;
@@ -22,7 +22,7 @@ namespace RecipeGUI
 				if (doPatch)
 				{
 					string patchPath = Path.GetDirectoryName(path) + "\\player.config.patch";
-					if (File.Exists(patchPath))
+					if (File.Exists(patchPath) && !overridePatch)
 					{
 						List<string> contents = File.ReadAllLines(patchPath).ToList();
 						contents[contents.Count - 2] = contents[contents.Count - 2] + ",";

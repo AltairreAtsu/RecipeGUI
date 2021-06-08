@@ -65,7 +65,7 @@
     <Compile Include="ControlMenuOptions\File\SaveAsFileOption.cs" />
     <Compile Include="ControlMenuOptions\File\SaveFileOption.cs" />
     <Compile Include="ControlMenuOptions\Other\CurrencyManagerOption.cs" />
-    <Compile Include="ControlMenuOptions\Other\PrefrencesWindowOption.cs" />
+    <Compile Include="ControlMenuOptions\Other\PreferencesWindowOption.cs" />
     <Compile Include="Currency Window\CurrencyControl.xaml.cs">
       <DependentUpon>CurrencyControl.xaml</DependentUpon>
     </Compile>
@@ -83,8 +83,9 @@
     <Compile Include="ControlMenuItem.xaml.cs">
       <DependentUpon>ControlMenuItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Prefrences.xaml.cs">
-      <DependentUpon>Prefrences.xaml</DependentUpon>
+    <Compile Include="Preferences Window\PreferencesManager.cs" />
+    <Compile Include="Preferences Window\PreferencesWindow.xaml.cs">
+      <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recipe.cs" />
     <Compile Include="InputItemControl.xaml.cs">
@@ -114,7 +115,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Prefrences.xaml">
+    <Page Include="Preferences Window\PreferencesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

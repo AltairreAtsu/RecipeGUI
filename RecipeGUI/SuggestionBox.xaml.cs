@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeGUI.Preferences_Window;
 
 namespace RecipeGUI
 {
@@ -22,6 +23,7 @@ namespace RecipeGUI
 	{
 		public List<string> suggestionStrings { get; set; }
 		public int targetIndex = 0;
+		public PreferencesManager prefs;
 
 		public bool SugestionStackIsEmpty
 		{
@@ -35,7 +37,7 @@ namespace RecipeGUI
 
 		private void TextBox_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (suggestionStrings == null) return;
+			if (suggestionStrings == null || !prefs.doAutocomplete) return;
 			if(e.Key == Key.Enter && !SugestionStackIsEmpty)
 			{
 				TextBlock target = (TextBlock)SuggestionsStack.Children[targetIndex];

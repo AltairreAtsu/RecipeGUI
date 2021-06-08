@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using RecipeGUI.Preferences_Window;
 
 namespace RecipeGUI
 {
@@ -24,6 +25,7 @@ namespace RecipeGUI
 		private List<string> currencySuggestionStrings;
 		private Dictionary<string, int> originalOutputs;
 		private bool SavingAndClosing = false;
+		private PreferencesManager prefs;
 
 		public RecipeEditorWindow mainWindow;
 
@@ -45,7 +47,11 @@ namespace RecipeGUI
 
 		public void SetCurrencyStrings(List<string> currencyStrings)
 		{
-			this.currencySuggestionStrings = currencyStrings;
+			currencySuggestionStrings = currencyStrings;
+		}
+		public void SetPreferences(PreferencesManager prefs)
+		{
+			this.prefs = prefs;
 		}
 
 		public CurrencyControl AddCurrencyControl()
@@ -55,6 +61,7 @@ namespace RecipeGUI
 			currencyControls.Add(currencyControl);
 			currencyControl.currencyWindow = this;
 			currencyControl.CurrenyNameSuggestion.suggestionStrings = currencySuggestionStrings;
+			currencyControl.CurrenyNameSuggestion.prefs = prefs;
 			CurrencyControlsStackPanel.Height += currencyControl.Height;
 			return currencyControl;
 		}
