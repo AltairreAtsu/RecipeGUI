@@ -13,5 +13,6 @@ namespace RecipeGUI
 		void ResetWindow();
 		void LoadRecipe(Recipe recipe, string path);
 		void OpenCurrencyWindow();
+		void OpenPrefrencesWindow();
 	}
 }

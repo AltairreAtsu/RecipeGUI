@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RecipeGUI"
         mc:Ignorable="d"
+		ResizeMode="NoResize"
 		Style="{StaticResource StarboundWindow}"
 		Closing="Window_Closing"
         Title="CurrencyWindow" Height="334.426" Width="320">

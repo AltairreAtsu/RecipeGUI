@@ -32,6 +32,8 @@ namespace RecipeGUI
 		
 		private Dictionary<string, int> currencyInputs;
 		private CurrencyWindow currencyWindow;
+		
+		private Prefrences prefrencesWindow;
 
 		private string loadedFilePath;
 
@@ -64,6 +66,7 @@ namespace RecipeGUI
 		{
 			var list = new List<IControlMenuOption>();
 			list.Add(new CurrencyManagerOption());
+			list.Add(new PrefrencesWindowOption());
 			Other_MenuItem.InitializeOptions(list);
 		}
 	
@@ -190,7 +193,10 @@ namespace RecipeGUI
 			Keyboard.ClearFocus();
 		}
 
-
+		public void OnPrefrencesWindowClose()
+		{
+			prefrencesWindow = null;
+		}
 
 		public void OnCurrencyWindowClose()
 		{
@@ -226,6 +232,15 @@ namespace RecipeGUI
 			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
 			if (currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
 			currencyWindow.Show();
+		}
+
+		public void OpenPrefrencesWindow()
+		{
+			if (prefrencesWindow != null) return;
+
+			prefrencesWindow = new Prefrences();
+			prefrencesWindow.recipeEditor = this;
+			prefrencesWindow.Show();
 		}
 
 		public bool SaveRecipe()
