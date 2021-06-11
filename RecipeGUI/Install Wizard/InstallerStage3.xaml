@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="RecipeGUI.Install_Wizard.InstallerStage3"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RecipeGUI.Install_Wizard"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="480">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="67*"/>
+			<RowDefinition Height="36*"/>
+			<RowDefinition Height="22*"/>
+		</Grid.RowDefinitions>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="37*"/>
+				<ColumnDefinition Width="83*"/>
+			</Grid.ColumnDefinitions>
+			<Image Source="Icon.png" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" Text="Greetings! It looks like you're running the Applicaiton for the first time!"/>
+		</Grid>
+		<TextBlock Text="Uh oh it looks there was a problem!" FontSize="15" Grid.Row="1" Margin="0"/>
+		<DockPanel LastChildFill="False" Grid.Row="2">
+			<Button Content="Continue" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,3"/>
+			<Button Content="Back" FontSize="20" Padding="10,3" Margin="5"/>
+		</DockPanel>
+	</Grid>
+</UserControl>

@@ -79,6 +79,18 @@
       <DependentUpon>DatascrubberWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="IControlMenuOption.cs" />
+    <Compile Include="Install Wizard\InstallerStage2.xaml.cs">
+      <DependentUpon>InstallerStage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Install Wizard\InstallerStage3.xaml.cs">
+      <DependentUpon>InstallerStage3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Install Wizard\InstallStage1.xaml.cs">
+      <DependentUpon>InstallStage1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Install Wizard\InstallWindow.xaml.cs">
+      <DependentUpon>InstallWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IRecipeWindow.cs" />
     <Compile Include="ListLoader.cs" />
     <Compile Include="ControlMenuItem.xaml.cs">
@@ -113,6 +125,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ControlMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Install Wizard\InstallerStage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Install Wizard\InstallerStage3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Install Wizard\InstallStage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Install Wizard\InstallWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,6 +204,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Install Wizard\Icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
