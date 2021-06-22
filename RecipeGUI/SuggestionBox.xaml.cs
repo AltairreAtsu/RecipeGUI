@@ -107,14 +107,14 @@ namespace RecipeGUI
 
 		private void SetTarget(TextBlock newTarget)
 		{
-			newTarget.Background = Brushes.LightBlue;
+			newTarget.Background = (Brush)FindResource("Suggestion_SelectedBackground");
 		}
 		private void ClearPreviousTarget()
 		{
 			TextBlock oldTarget = (TextBlock)SuggestionsStack.Children[targetIndex];
 			if (oldTarget != null)
 			{
-				oldTarget.Background = Brushes.Transparent;
+				oldTarget.Background = (Brush)FindResource("Suggestion_StaticBackground");
 			}
 		}
 
