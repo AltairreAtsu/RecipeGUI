@@ -8,10 +8,15 @@
     <StackPanel x:Name="RootStack" Margin="0" >
 		<TextBox x:Name="SuggestionTextField" MinWidth="100" Height="{Binding Height, ElementName=RootStack}" MaxLines="1" KeyUp="TextBox_KeyUp" LostKeyboardFocus="SuggestionTextField_LostKeyboardFocus"/>
 		<Popup x:Name="SuggestionPopup" Placement="Bottom" >
-			<ScrollViewer x:Name="SuggestionScroller" MinHeight="50" MaxHeight="120" Visibility="Visible" Background="Gray" HorizontalContentAlignment="Stretch" MinWidth="{Binding ActualWidth, ElementName=RootStack}">
+			<ScrollViewer x:Name="SuggestionScroller" MinHeight="50" MaxHeight="120" Visibility="Visible" Background="{DynamicResource ScrollView_Background}" HorizontalContentAlignment="Stretch" MinWidth="{Binding ActualWidth, ElementName=RootStack}">
 				<StackPanel x:Name="SuggestionsStack"  Height="18" VerticalAlignment="Top"/>
 			</ScrollViewer>
 		</Popup>
 	</StackPanel>
-
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="ScrollView_Background" Color="#FF3A3A3A"/>
+		<SolidColorBrush x:Key="Suggestion_SelectedBackground" Color="LightBlue"/>
+		<SolidColorBrush x:Key="Suggestion_StaticBackground" Color="Transparent"
+/>
+	</UserControl.Resources>
 </UserControl>
