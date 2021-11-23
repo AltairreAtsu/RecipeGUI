@@ -80,6 +80,7 @@ namespace RecipeGUI
 			if (query.Length == 0)
 			{
 				CloseSuggestionBox();
+				return;
 			}
 			else
 			{
@@ -139,14 +140,6 @@ namespace RecipeGUI
 			{
 				SuggestionTextField.Text = (sender as TextBlock).Text;
 				CloseSuggestionBox();
-			};
-
-			block.MouseEnter += (sender, e) =>
-			{
-				TextBlock b = sender as TextBlock;
-				ClearPreviousTarget();
-				SetTarget(b);
-				targetIndex = SuggestionsStack.Children.IndexOf(b);
 			};
 
 			// Add to the panel   
