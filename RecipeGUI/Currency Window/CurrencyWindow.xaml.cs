@@ -58,7 +58,7 @@ namespace RecipeGUI
 			CurrencyControl currencyControl = new CurrencyControl();
 			CurrencyControlsStackPanel.Children.Add(currencyControl);
 			currencyControls.Add(currencyControl);
-			currencyControl.currencyWindow = this;
+			currencyControl.SetCurrencyWindow(this);
 			currencyControl.CurrenyNameSuggestion.suggestionStrings = currencySuggestionStrings;
 			currencyControl.CurrenyNameSuggestion.prefs = prefs;
 			CurrencyControlsStackPanel.Height += currencyControl.Height;
@@ -132,6 +132,18 @@ namespace RecipeGUI
 			}
 
 			mainWindow.setCurrencyDictionary(parsingResult.currencyInputs);
+		}
+
+		private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+		{
+			if(e.VerticalChange != 0)
+			{
+				foreach (CurrencyControl control in currencyControls)
+				{
+					control.ClosePopup();
+				}
+			}
+			
 		}
 	}
 

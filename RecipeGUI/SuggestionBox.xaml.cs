@@ -35,6 +35,11 @@ namespace RecipeGUI
 			InitializeComponent();
 		}
 
+		public void OnWindowMove(object sender, EventArgs args)
+		{
+			CloseSuggestionBox();
+		}
+
 		private void TextBox_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (suggestionStrings == null || !prefs.doAutocomplete) return;
@@ -153,7 +158,7 @@ namespace RecipeGUI
 			SuggestionPopup.IsOpen = true;
 		}
 
-		private void CloseSuggestionBox()
+		public void CloseSuggestionBox()
 		{
 			SuggestionPopup.IsOpen = false;
 		}

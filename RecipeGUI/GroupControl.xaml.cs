@@ -20,10 +20,21 @@ namespace RecipeGUI
 	/// </summary>
 	public partial class GroupControl : UserControl
 	{
-		public RecipeEditorWindow window;
+		private RecipeEditorWindow window;
 		public GroupControl()
 		{
 			InitializeComponent();
+		}
+
+		public void SetRecipeEditorWindow(RecipeEditorWindow window)
+		{
+			this.window = window;
+			window.LocationChanged += SuggesrionField.OnWindowMove;
+		}
+
+		public void ClosePopup()
+		{
+			SuggesrionField.CloseSuggestionBox();
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)

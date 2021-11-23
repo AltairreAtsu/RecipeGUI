@@ -113,7 +113,7 @@ namespace RecipeGUI
 		public void AddInputItem(string name, int count)
 		{
 			InputItemControl userControl = new InputItemControl();
-			userControl.window = this;
+			userControl.SetRecipeEditorWindow(this);
 			userControl.InputItemSuggestionField.suggestionStrings = listLoader.nameStrings;
 			userControl.InputItemSuggestionField.prefs = preferencesManager;
 			userControl.InputItemSuggestionField.SuggestionTextField.Text = name;
@@ -127,7 +127,7 @@ namespace RecipeGUI
 		public void AddCraftingGroup(string name)
 		{
 			GroupControl userControl = new GroupControl();
-			userControl.window = this;
+			userControl.SetRecipeEditorWindow(this);
 			userControl.SuggesrionField.suggestionStrings = listLoader.categoryStrings;
 			userControl.SuggesrionField.prefs = preferencesManager;
 			userControl.SuggesrionField.SuggestionTextField.Text = name;
@@ -161,6 +161,28 @@ namespace RecipeGUI
 		{
 			groupControls = new List<GroupControl>();
 			GroupsStackPanel.Children.Clear();
+		}
+
+		public void GroupScrollChanged(object sender, ScrollChangedEventArgs args)
+		{
+			if(args.VerticalChange != 0)
+			{
+				foreach (GroupControl control in groupControls)
+				{
+					control.ClosePopup();
+				}
+			}
+		}
+
+		public void InputScrollChanged(object sender, ScrollChangedEventArgs args)
+		{
+			if (args.VerticalChange != 0)
+			{
+				foreach (InputItemControl control in inputItemsControls)
+				{
+					control.ClosePopup();
+				}
+			}
 		}
 		#endregion
 

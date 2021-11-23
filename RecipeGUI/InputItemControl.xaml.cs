@@ -20,11 +20,22 @@ namespace RecipeGUI
 	/// </summary>
 	public partial class InputItemControl : UserControl
 	{
-		public RecipeEditorWindow window;
-
+		private RecipeEditorWindow window;
+	
 		public InputItemControl()
 		{
 			InitializeComponent();
+		}
+
+		public void SetRecipeEditorWindow(RecipeEditorWindow window)
+		{
+			this.window = window;
+			window.LocationChanged += InputItemSuggestionField.OnWindowMove;
+		}
+
+		public void ClosePopup()
+		{
+			InputItemSuggestionField.CloseSuggestionBox();
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)

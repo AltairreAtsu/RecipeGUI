@@ -26,6 +26,17 @@ namespace RecipeGUI
 			InitializeComponent();
 		}
 
+		public void SetCurrencyWindow(CurrencyWindow currencyWindow)
+		{
+			this.currencyWindow = currencyWindow;
+			currencyWindow.LocationChanged += CurrenyNameSuggestion.OnWindowMove;
+		}
+
+		public void ClosePopup()
+		{
+			CurrenyNameSuggestion.CloseSuggestionBox();
+		}
+
 		private void RemoveControlButton_Click(object sender, RoutedEventArgs e)
 		{
 			currencyWindow.RemoveCurrencyControl(this);
