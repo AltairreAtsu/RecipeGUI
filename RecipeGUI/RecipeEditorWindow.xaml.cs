@@ -165,7 +165,8 @@ namespace RecipeGUI
 
 		public void GroupScrollChanged(object sender, ScrollChangedEventArgs args)
 		{
-			if(args.VerticalChange != 0)
+			if(ReferenceEquals(args.Source, GroupScroll)
+				&& args.VerticalChange != 0)
 			{
 				foreach (GroupControl control in groupControls)
 				{
@@ -176,7 +177,8 @@ namespace RecipeGUI
 
 		public void InputScrollChanged(object sender, ScrollChangedEventArgs args)
 		{
-			if (args.VerticalChange != 0)
+			if (ReferenceEquals(args.Source, InputScroll)
+				&& args.VerticalChange != 0)
 			{
 				foreach (InputItemControl control in inputItemsControls)
 				{
@@ -287,7 +289,7 @@ namespace RecipeGUI
 			currencyWindow.mainWindow = this;
 			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
 			currencyWindow.SetPreferences(preferencesManager);
-			if (currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
+			if (currencyInputs != null && currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
 			currencyWindow.Show();
 		}
 

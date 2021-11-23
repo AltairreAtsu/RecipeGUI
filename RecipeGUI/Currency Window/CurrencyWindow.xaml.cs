@@ -23,7 +23,7 @@ namespace RecipeGUI
 	{
 		private List<CurrencyControl> currencyControls = new List<CurrencyControl>();
 		private List<string> currencySuggestionStrings;
-		private Dictionary<string, int> originalOutputs;
+
 		private PreferencesManager prefs;
 
 		public RecipeEditorWindow mainWindow;
@@ -35,7 +35,6 @@ namespace RecipeGUI
 
 		public void RecoverState(Dictionary<string, int> currencyInputs)
 		{
-			originalOutputs = currencyInputs;
 			foreach(KeyValuePair<string, int> kvp in currencyInputs)
 			{
 				CurrencyControl control = AddCurrencyControl();
@@ -136,7 +135,8 @@ namespace RecipeGUI
 
 		private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
 		{
-			if(e.VerticalChange != 0)
+			if(ReferenceEquals(e.Source, CurrencyScroll)
+				&& e.VerticalChange != 0)
 			{
 				foreach (CurrencyControl control in currencyControls)
 				{

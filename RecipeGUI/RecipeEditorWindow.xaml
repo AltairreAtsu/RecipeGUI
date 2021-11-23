@@ -25,7 +25,7 @@
 					<Label Content="Input Items:" FontSize="25"/>
 					<Button Content="+" FontSize="25" DockPanel.Dock="Right" MinWidth="35" Click="AddInputItem_Click"/>
 				</DockPanel>
-				<ScrollViewer Height="250" Background="#0E101B" ScrollChanged="InputScrollChanged">
+				<ScrollViewer x:Name="InputScroll" Height="250" Background="#0E101B" ScrollChanged="InputScrollChanged">
 					<StackPanel x:Name="Input_Stack_Panel">
 
 					</StackPanel>
@@ -36,7 +36,7 @@
 					<Label Content="Groups:" FontSize="25"/>
 					<Button Content="+" FontSize="25" DockPanel.Dock="Right" MinWidth="35" Click="AddCraftingGroup_Click"/>
 				</DockPanel>
-				<ScrollViewer Height="250" Background="#0E101B" ScrollChanged="GroupScrollChanged">
+				<ScrollViewer x:Name="GroupScroll" Height="250" Background="#0E101B" ScrollChanged="GroupScrollChanged">
 					<StackPanel x:Name="GroupsStackPanel">
 
 					</StackPanel>

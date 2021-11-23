@@ -14,7 +14,7 @@
 			<Label Content="Currencies:" FontSize="25" VerticalAlignment="Center"/>
 			<Button x:Name="AddCurrencyButton" Content="Add Currency" FontSize="14" Width="97" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" Click="AddCurrencyButton_Click"/>
 		</DockPanel>
-		<ScrollViewer Height="259" Background="#0E101B" ScrollChanged="ScrollViewer_ScrollChanged">
+		<ScrollViewer x:Name="CurrencyScroll" Height="259" Background="#0E101B" ScrollChanged="ScrollViewer_ScrollChanged">
 			<StackPanel x:Name="CurrencyControlsStackPanel">
 
 			</StackPanel>
