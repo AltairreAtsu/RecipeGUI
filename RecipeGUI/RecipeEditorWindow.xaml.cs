@@ -348,6 +348,7 @@ namespace RecipeGUI
 			OutputItemCountField.Text = recipe.output.count.ToString();
 
 			currencyInputs = recipe.currencyInputs;
+			if (currencyInputs == null) currencyInputs = new Dictionary<string, int>();
 		}
 		#endregion
 	}

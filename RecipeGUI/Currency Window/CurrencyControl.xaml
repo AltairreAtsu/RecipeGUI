@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="28 0">
 	<StackPanel Orientation="Horizontal">
-		<TextBlock Text="Currency Amount" TextWrapping="Wrap" Width="53" VerticalAlignment="Center"/>
+		<TextBlock Text="Currency Name" TextWrapping="Wrap" Width="53" VerticalAlignment="Center"/>
 		<local:SuggestionBox x:Name="CurrenyNameSuggestion" Width="102" VerticalAlignment="Center" Margin="0,16"/>
 		<Label Content="Amount" VerticalAlignment="Center" Margin="0"/>
 		<TextBox x:Name="AmountTextField" VerticalAlignment="Center" MinWidth="50" Text="0"  />
