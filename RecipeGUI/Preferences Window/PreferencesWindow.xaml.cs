@@ -24,8 +24,6 @@ namespace RecipeGUI.Preferences_Window
 
 		private PreferencesManager originalPrefs;
 
-		private bool savingAndExiting = false;
-
 		public PreferencesWindow()
 		{
 			InitializeComponent();
@@ -42,31 +40,8 @@ namespace RecipeGUI.Preferences_Window
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (savingAndExiting)
-			{
-				recipeEditor.OnPrefrencesWindowClose();
-				return;
-			}
-			bool dataHasChanged =	(originalPrefs.doAutocomplete != (bool)UseAutoComplete_Checkbox.IsChecked)
-									|| (originalPrefs.doCreatePatch != (bool)AutoGeneratePatch_Checkbox.IsChecked)
-									|| (originalPrefs.doOverridePatchFile != (bool)OverridePatchFile_Checkbox.IsChecked);
-			if (dataHasChanged)
-			{
-				var result = MessageBox.Show("You haven't saved your changes, exit anyway?", "Warning!", MessageBoxButton.YesNo);
-				if(result != MessageBoxResult.Yes)
-				{
-					e.Cancel = true;
-				}
-			}
-			
-			recipeEditor.OnPrefrencesWindowClose();
-		}
-
-		private void SaveButton_Click(object sender, RoutedEventArgs e)
-		{
 			preferencesManager.WriteConfig();
-			savingAndExiting = true;
-			Close();
+			recipeEditor.OnPrefrencesWindowClose();
 		}
 
 		private void AutoGeneratePatch_Checkbox_Changed(object sender, RoutedEventArgs e)

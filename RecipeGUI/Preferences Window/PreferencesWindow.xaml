@@ -8,7 +8,7 @@
 		Closing="Window_Closing"
 		ResizeMode="NoResize"
 		Style="{DynamicResource StarboundWindow}"
-        Title="Prefrences" Height="216" Width="349">
+        Title="Prefrences" Height="175.869" Width="349">
 	<StackPanel>
 		<Label Content="Preferences:" FontSize="25"/>
 		<Grid>
@@ -31,8 +31,6 @@
 			<CheckBox x:Name="UseAutoComplete_Checkbox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"
 					  Checked="UseAutoComplete_Checkbox_Changed" Unchecked="UseAutoComplete_Checkbox_Changed"/>
 		</Grid>
-		<DockPanel LastChildFill="False">
-			<Button Content="Save" FontSize="25" DockPanel.Dock="Right" Margin="0,0,10,0" Width="100" Click="SaveButton_Click"/>
-		</DockPanel>
+		<DockPanel LastChildFill="False"/>
 	</StackPanel>
 </Window>

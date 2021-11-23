@@ -24,7 +24,6 @@ namespace RecipeGUI
 		private List<CurrencyControl> currencyControls = new List<CurrencyControl>();
 		private List<string> currencySuggestionStrings;
 		private Dictionary<string, int> originalOutputs;
-		private bool SavingAndClosing = false;
 		private PreferencesManager prefs;
 
 		public RecipeEditorWindow mainWindow;
@@ -115,10 +114,7 @@ namespace RecipeGUI
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			mainWindow.OnCurrencyWindowClose();
-			if (SavingAndClosing)
-			{
-				return;
-			}
+
 			var parsingResult = ParseCurrencies();
 
 			if (parsingResult.parsingFailed)
@@ -126,6 +122,7 @@ namespace RecipeGUI
 				var result = MessageBox.Show("Parsing data failed and has not been saved. Do you want to exit the window?", "Warning!", MessageBoxButton.YesNo);
 				if (result == MessageBoxResult.Yes)
 				{
+					// Let the window close
 					return;
 				}
 				else
@@ -134,38 +131,7 @@ namespace RecipeGUI
 				}
 			}
 
-			bool dataHasChanged =	(originalOutputs == null && parsingResult.currencyInputs != null) ||
-									(originalOutputs != null && parsingResult.currencyInputs == null) ||
-									(originalOutputs != null && !DictionariesAreEqual(originalOutputs, parsingResult.currencyInputs));
-			if (dataHasChanged)
-			{
-				var result = MessageBox.Show("You have unsaved changes, are you sure you want to close the window?", "Warning!", MessageBoxButton.YesNo);
-				if(result == MessageBoxResult.Yes)
-				{
-					return;
-				}
-				else
-				{
-					e.Cancel = true;
-				}
-			}
-		}
-
-		private void Done_Click(object sender, RoutedEventArgs e)
-		{
-			var parsingResult = ParseCurrencies();
-			if (parsingResult.currencyInputs == null)
-			{
-				return;
-			}
 			mainWindow.setCurrencyDictionary(parsingResult.currencyInputs);
-			SavingAndClosing = true;
-			Close();
-		}
-
-		private bool DictionariesAreEqual(Dictionary<string, int> dic1, Dictionary<string, int> dic2)
-		{
-			return dic1.Count == dic2.Count && !dic1.Except(dic2).Any();
 		}
 	}
 
