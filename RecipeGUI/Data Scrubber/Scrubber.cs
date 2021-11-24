@@ -26,7 +26,7 @@ namespace RecipeGUI
 		public delegate void StatusEvent(string eventText);
 		StatusEvent eventHandler;
 
-		public void Run(string searchRoot, string outputPath, StatusEvent eventHandler)
+		public void Run(string searchRoot, string outputPath, StatusEvent eventHandler, ListLoader listLoader)
 		{
 			this.eventHandler = eventHandler;
 
@@ -44,6 +44,7 @@ namespace RecipeGUI
 			eventHandler(Lang.exportingFiles);
 			WriteLists(outputPath);
 			eventHandler(Lang.exportComplete);
+			listLoader.LoadFilesFromDirectory(outputPath);
 		}
 
 		public bool ReadVanillaLists()

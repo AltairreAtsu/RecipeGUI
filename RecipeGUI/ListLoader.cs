@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RecipeGUI
 {
-	class ListLoader
+	public class ListLoader
 	{
 		private string listDirectoryPath = Environment.CurrentDirectory + "\\Lists";
 
@@ -33,7 +33,7 @@ namespace RecipeGUI
 			}
 		}
 
-		private void LoadFilesFromDirectory(string subDirectory)
+		public void LoadFilesFromDirectory(string subDirectory)
 		{
 			ReadFileToList(subDirectory + "\\Item Names.list", nameStrings);
 			ReadFileToList(subDirectory + "\\Material Names.list", nameStrings);

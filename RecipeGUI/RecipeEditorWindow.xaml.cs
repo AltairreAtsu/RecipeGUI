@@ -375,5 +375,9 @@ namespace RecipeGUI
 			if (currencyInputs == null) currencyInputs = new Dictionary<string, int>();
 		}
 		#endregion
+		public ListLoader GetListLoader()
+		{
+			return listLoader;
+		}
 	}
 }

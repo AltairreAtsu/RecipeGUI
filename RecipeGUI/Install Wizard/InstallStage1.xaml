@@ -18,7 +18,7 @@
 				<ColumnDefinition Width="83*"/>
 			</Grid.ColumnDefinitions>
 			<Image Source="Icon.png" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" Text="Greetings! It looks like you're running the Applicaiton for the first time!"/>
+			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" Text="Greetings! It looks like you're running the application for the first time!"/>
 		</Grid>
 		<DockPanel LastChildFill="False" Grid.Row="2">
 			<Button Content="Continue" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,3"/>
