@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="RecipeGUI.CurrencyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RecipeGUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" Width="355.5">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="52*"/>
+			<ColumnDefinition Width="37*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Column="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="23*"/>
+				<ColumnDefinition Width="29*"/>
+			</Grid.ColumnDefinitions>
+			<Label Content="Currency Name" VerticalAlignment="Center" Grid.Column="0"/>
+			<local:SuggestionBox x:Name="CurrenyNameSuggestion" VerticalAlignment="Center" Grid.Column="1"/>
+		</Grid>
+		<Grid Grid.Column="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="27*"/>
+				<ColumnDefinition Width="33*"/>
+				<ColumnDefinition Width="14*"/>
+			</Grid.ColumnDefinitions>
+			<Label Content="Amount" VerticalAlignment="Center" Grid.Column="0"/>
+			<TextBox x:Name="AmountTextField" VerticalAlignment="Center" Text="0" Grid.Column="1"/>
+			<Button x:Name="RemoveControlButton" Content="-" VerticalAlignment="Center" Click="RemoveControlButton_Click" Grid.Column="2"/>
+		</Grid>
+	</Grid>
+</UserControl>

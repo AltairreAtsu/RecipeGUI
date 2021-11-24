@@ -64,16 +64,12 @@
     <Compile Include="ControlMenuOptions\File\OpenFileOption.cs" />
     <Compile Include="ControlMenuOptions\File\SaveAsFileOption.cs" />
     <Compile Include="ControlMenuOptions\File\SaveFileOption.cs" />
-    <Compile Include="ControlMenuOptions\Other\CurrencyManagerOption.cs" />
     <Compile Include="ControlMenuOptions\Other\DataScrubberWindowOption.cs" />
     <Compile Include="ControlMenuOptions\Other\PreferencesWindowOption.cs" />
-    <Compile Include="Currency Window\CurrencyControl.xaml.cs">
+    <Compile Include="CurrencyControl.xaml.cs">
       <DependentUpon>CurrencyControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Currency Window\CurrencyInput.cs" />
-    <Compile Include="Currency Window\CurrencyWindow.xaml.cs">
-      <DependentUpon>CurrencyWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="CurrencyInput.cs" />
     <Compile Include="Data Scrubber\Lang.cs" />
     <Compile Include="Data Scrubber\DatascrubberWindow.xaml.cs">
       <DependentUpon>DatascrubberWindow.xaml</DependentUpon>
@@ -112,11 +108,7 @@
     <Compile Include="SuggestionBox.xaml.cs">
       <DependentUpon>SuggestionBox.xaml</DependentUpon>
     </Compile>
-    <Page Include="Currency Window\CurrencyControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Currency Window\CurrencyWindow.xaml">
+    <Page Include="CurrencyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

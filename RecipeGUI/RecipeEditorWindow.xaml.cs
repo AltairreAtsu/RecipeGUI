@@ -29,10 +29,10 @@ namespace RecipeGUI
 		
 		private List<InputItemControl> inputItemsControls;
 		private List<GroupControl> groupControls;
+		private List<CurrencyControl> currencyControls;
 		private ListLoader listLoader;
 		
 		private Dictionary<string, int> currencyInputs;
-		private CurrencyWindow currencyWindow;
 		
 		private PreferencesWindow preferencesWindow;
 		private PreferencesManager preferencesManager;
@@ -48,6 +48,8 @@ namespace RecipeGUI
 
 			inputItemsControls = new List<InputItemControl>();
 			groupControls = new List<GroupControl>();
+			currencyControls = new List<CurrencyControl>();
+
 			currencyInputs = new Dictionary<string, int>();
 			listLoader = new ListLoader();
 			listLoader.LoadNamesIntoLists();
@@ -92,7 +94,6 @@ namespace RecipeGUI
 		private void SetupOtherMenu()
 		{
 			var list = new List<IControlMenuOption>();
-			list.Add(new CurrencyManagerOption());
 			list.Add(new DataScrubberWindowOption());
 			list.Add(new PreferencesWindowOption());
 			Other_MenuItem.InitializeOptions(list);
@@ -188,7 +189,109 @@ namespace RecipeGUI
 		}
 		#endregion
 
+		#region Currency Manager
+		private void AddCurrencyButton_Click(object sender, RoutedEventArgs e)
+		{
+			AddCurrencyControl();
+		}
+
+		private void CurrencyScrollChanged(object sender, ScrollChangedEventArgs e)
+		{
+			if (ReferenceEquals(e.Source, CurrencyScroll)
+				&& e.VerticalChange != 0)
+			{
+				foreach (CurrencyControl control in currencyControls)
+				{
+					control.ClosePopup();
+				}
+			}
+
+		}
+
+		private void Expander_Expanded(object sender, RoutedEventArgs e)
+		{
+			CurrencyExpander.Height = 160;
+			Height += (CurrencyExpander.Height - 40);
+			// Expand the window
+		}
+
+		private void Expander_Collapsed(object sender, RoutedEventArgs e)
+		{
+			// Collapse the window
+			Height -= (CurrencyExpander.Height - 40);
+			CurrencyExpander.Height = 40;
+		}
+
+		private void RecoverState(Dictionary<string, int> currencyInputs)
+		{
+			foreach (KeyValuePair<string, int> kvp in currencyInputs)
+			{
+				CurrencyControl control = AddCurrencyControl();
+				control.CurrenyNameSuggestion.SuggestionTextField.Text = kvp.Key;
+				control.AmountTextField.Text = kvp.Value.ToString();
+			}
+		}
+
+		private CurrencyControl AddCurrencyControl()
+		{
+			CurrencyControl currencyControl = new CurrencyControl();
+			CurrencyControlsStackPanel.Children.Add(currencyControl);
+			currencyControls.Add(currencyControl);
+			currencyControl.SetCurrencyWindow(this);
+			currencyControl.CurrenyNameSuggestion.suggestionStrings = listLoader.currencyStrings;
+			currencyControl.CurrenyNameSuggestion.prefs = preferencesManager;
+			currencyControl.Width = CurrencyControlsStackPanel.Width;
+			CurrencyControlsStackPanel.Height += currencyControl.Height;
+			return currencyControl;
+		}
+		public void RemoveCurrencyControl(CurrencyControl currencyControl)
+		{
+			CurrencyControlsStackPanel.Children.Remove(currencyControl);
+			currencyControls.Remove(currencyControl);
+			CurrencyControlsStackPanel.Height -= currencyControl.Height;
+		}
+		private void RemoveAllCurrencyElements()
+		{
+			CurrencyControlsStackPanel.Children.Clear();
+			currencyControls = new List<CurrencyControl>();
+		}
+
+		#endregion
+
 		#region Parsing Values
+		private ParsingResult ParseCurrencies()
+		{
+			var currencyInputs = new Dictionary<string, int>();
+			var parsingResult = new ParsingResult();
+
+
+			if (currencyControls.Count == 0)
+			{
+				parsingResult.parsingFailed = false;
+				return parsingResult;
+			}
+			foreach (CurrencyControl control in currencyControls)
+			{
+				var input = control.GetCurrencyInput();
+				if (input.amount == null)
+				{
+					System.Windows.MessageBox.Show("Parsing Error! Amount of " + input.name + "not set to numerical value! Canceling Export.");
+					parsingResult.parsingFailed = true;
+					return parsingResult;
+				}
+				if (currencyInputs.ContainsKey(input.name))
+				{
+					System.Windows.MessageBox.Show("Duplicate Currency name detected. Please ensure only one input exists for key " + input.name + ".");
+					parsingResult.parsingFailed = true;
+					return parsingResult;
+				}
+				currencyInputs.Add(input.name, (int)input.amount);
+			}
+			parsingResult.parsingFailed = false;
+			parsingResult.currencyInputs = currencyInputs;
+			return parsingResult;
+		}
+
 		private string[] ParseGroups()
 		{
 			if (groupControls.Count == 0) return null;
@@ -252,10 +355,6 @@ namespace RecipeGUI
 			preferencesWindow = null;
 		}
 
-		public void OnCurrencyWindowClose()
-		{
-			currencyWindow = null;
-		}
 		public void OnDatascrubberWindowClose()
 		{
 			datascrubberWindow = null;
@@ -271,26 +370,13 @@ namespace RecipeGUI
 		{
 			RemoveAllInputElements();
 			RemoveAllGroupElements();
+			RemoveAllCurrencyElements();
 			OutputSuggestionField.SuggestionTextField.Text = "";
 			OutputItemCountField.Text = "";
 
-			if (currencyWindow != null && currencyWindow.IsActive)
-				currencyWindow.Close();
 			currencyInputs = new Dictionary<string, int>();
 
 			loadedFilePath = null;
-		}
-
-		public void OpenCurrencyWindow()
-		{
-			if (currencyWindow != null) return;
-
-			currencyWindow = new CurrencyWindow();
-			currencyWindow.mainWindow = this;
-			currencyWindow.SetCurrencyStrings(listLoader.currencyStrings);
-			currencyWindow.SetPreferences(preferencesManager);
-			if (currencyInputs != null && currencyInputs.Count != 0) currencyWindow.RecoverState(currencyInputs);
-			currencyWindow.Show();
 		}
 
 		public void OpenPrefrencesWindow()
@@ -339,10 +425,17 @@ namespace RecipeGUI
 			if (groups == null) return;
 			recipe.groups = groups;
 
-			if (currencyInputs != null && currencyInputs.Count != 0)
+			var parsingResult = ParseCurrencies();
+			if (parsingResult.parsingFailed)
 			{
-				recipe.currencyInputs = currencyInputs;
+				return;
 			}
+			else
+			{
+				recipe.currencyInputs = parsingResult.currencyInputs;
+			}
+
+
 			bool sucess = RecipeJsonHandler.WriteJson(path, recipe, preferencesManager.doCreatePatch, preferencesManager.doOverridePatchFile);
 			if (!sucess)
 			{
@@ -352,10 +445,9 @@ namespace RecipeGUI
 
 		public void LoadRecipe(Recipe recipe, string path)
 		{
-			Input_Stack_Panel.Children.Clear();
-			GroupsStackPanel.Children.Clear();
-			if (currencyWindow != null && currencyWindow.IsActive)
-				currencyWindow.Close();
+			RemoveAllInputElements();
+			RemoveAllGroupElements();
+			RemoveAllCurrencyElements();
 
 			loadedFilePath = path;
 
@@ -373,6 +465,7 @@ namespace RecipeGUI
 
 			currencyInputs = recipe.currencyInputs;
 			if (currencyInputs == null) currencyInputs = new Dictionary<string, int>();
+			RecoverState(currencyInputs);
 		}
 		#endregion
 		public ListLoader GetListLoader()
@@ -380,4 +473,10 @@ namespace RecipeGUI
 			return listLoader;
 		}
 	}
+}
+
+public class ParsingResult
+{
+	public Dictionary<string, int> currencyInputs;
+	public bool parsingFailed = false;
 }

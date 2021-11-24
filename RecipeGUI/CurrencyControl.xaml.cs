@@ -20,16 +20,16 @@ namespace RecipeGUI
 	/// </summary>
 	public partial class CurrencyControl : UserControl
 	{
-		public CurrencyWindow currencyWindow;
+		public RecipeEditorWindow recipeWindow;
 		public CurrencyControl()
 		{
 			InitializeComponent();
 		}
 
-		public void SetCurrencyWindow(CurrencyWindow currencyWindow)
+		public void SetCurrencyWindow(RecipeEditorWindow recipeWindow)
 		{
-			this.currencyWindow = currencyWindow;
-			currencyWindow.LocationChanged += CurrenyNameSuggestion.OnWindowMove;
+			this.recipeWindow = recipeWindow;
+			recipeWindow.LocationChanged += CurrenyNameSuggestion.OnWindowMove;
 		}
 
 		public void ClosePopup()
@@ -39,7 +39,7 @@ namespace RecipeGUI
 
 		private void RemoveControlButton_Click(object sender, RoutedEventArgs e)
 		{
-			currencyWindow.RemoveCurrencyControl(this);
+			recipeWindow.RemoveCurrencyControl(this);
 		}
 
 		public CurrencyInput GetCurrencyInput()

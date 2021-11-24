@@ -7,7 +7,7 @@
         mc:Ignorable="d"
 		Style="{DynamicResource StarboundWindow}"
 		ResizeMode="NoResize"
-        Title="Recipe Editor" Height="424.001" Width="719"
+        Title="Recipe Editor" Height="453.001" Width="719"
 		MouseDown="root_MouseDown">
 	<StackPanel>
 		<DockPanel Background="#2C2C2C" LastChildFill="False">
@@ -43,10 +43,22 @@
 				</ScrollViewer>
 			</StackPanel>
 		</Grid>
-		<StackPanel Orientation="Horizontal" Margin="20,20,0,0">
+		<Expander x:Name="CurrencyExpander" Header="Currency Manager:" Height="40" FontSize="20" Foreground="White" Expanded="Expander_Expanded" Collapsed="Expander_Collapsed" Margin="20,0,20,0">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="3*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<ScrollViewer x:Name="CurrencyScroll" Grid.Row="0" ScrollChanged="CurrencyScrollChanged">
+					<StackPanel x:Name="CurrencyControlsStackPanel" Background="#0E101B"/>
+				</ScrollViewer>
+				<Button x:Name="AddCurrencyButton" Content="Add Currency" Grid.Row="1" Click="AddCurrencyButton_Click"/>
+			</Grid>
+		</Expander>
+		<StackPanel Orientation="Horizontal" Margin="20,20,20,0" HorizontalAlignment="Right">
 			<Label Content="Output Item:" FontSize="20"/>
-			<local:SuggestionBox x:Name="OutputSuggestionField" Width="150" FontSize="20" VerticalAlignment="Center"/>
-			<Label Content="Count:" FontSize="20"/>
+		<local:SuggestionBox x:Name="OutputSuggestionField" Width="150" FontSize="20" VerticalAlignment="Center"/>
+		<Label Content="Count:" FontSize="20"/>
 			<TextBox x:Name="OutputItemCountField" FontSize="20" Width="100" VerticalAlignment="Center"/>
 		</StackPanel>
 	</StackPanel>
