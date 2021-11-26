@@ -21,15 +21,22 @@ namespace RecipeGUI
 
 		private List<string> vanillaCurrencies;
 		private List<string> vanillaGroupNames;
-		private bool readVanillaLists = false;
+		private bool vanillaListsExist = false;
+		private double totalFilesInSystem = 0;
+		private double scrubbedFiles = 0;
 
+		// TODO: Remove this delegate and it calls
 		public delegate void StatusEvent(string eventText);
-		StatusEvent eventHandler;
+		public StatusEvent statusUpdateEvent;
 
-		public void Run(string searchRoot, string outputPath, StatusEvent eventHandler, ListLoader listLoader)
+		public delegate void ProcessCompleteEvent();
+		public ProcessCompleteEvent processCompleteEvent;
+
+		public delegate void FileScrubEvent(string fileName, double percentage);
+		public FileScrubEvent fileScrubEvent;
+
+		public void Run(string searchRoot, string outputPath)
 		{
-			this.eventHandler = eventHandler;
-
 			objectNames = new List<string>();
 			itemNames = new List<string>();
 			materialNames = new List<string>();
@@ -37,19 +44,28 @@ namespace RecipeGUI
 			groupNames = new List<string>();
 			currencies = new List<string>();
 
-			readVanillaLists = ReadVanillaLists();
-			
-			eventHandler(Lang.currentlyScrubbing);
+			vanillaListsExist = ReadVanillaLists();
+			totalFilesInSystem = GetNumberOfFilesInSystem(searchRoot);
+
+			if (statusUpdateEvent != null) statusUpdateEvent(Lang.currentlyScrubbing);
 			ScrubDirectories(searchRoot);
-			eventHandler(Lang.exportingFiles);
+			if (statusUpdateEvent != null) statusUpdateEvent(Lang.exportingFiles);
 			WriteLists(outputPath);
-			eventHandler(Lang.exportComplete);
+			if (statusUpdateEvent != null) statusUpdateEvent(Lang.exportComplete);
+
+
+			if (processCompleteEvent != null) processCompleteEvent();
+		}
+
+		public void RunAndLoad(string searchRoot, string outputPath, ListLoader listLoader)
+		{
+			Run(searchRoot, outputPath);
 			listLoader.LoadFilesFromDirectory(outputPath);
 		}
 
 		public bool ReadVanillaLists()
 		{
-			string path = Environment.CurrentDirectory + "\\Vanilla Lists";
+			string path = Environment.CurrentDirectory + "\\Lists\\Vanilla Lists";
 
 			vanillaCurrencies = new List<string>();
 			vanillaGroupNames = new List<string>();
@@ -78,6 +94,8 @@ namespace RecipeGUI
 
 		public void WriteLists(string outputPath)
 		{
+			if (!Directory.Exists(outputPath)) Directory.CreateDirectory(outputPath);
+
 			if(objectNames.Count > 0)
 			WriteList(objectNames, outputPath + "/Object Names.list");
 			
@@ -137,7 +155,30 @@ namespace RecipeGUI
 				{
 					ScrubFile(file);
 				}
+				scrubbedFiles++;
+				double progress = (scrubbedFiles / totalFilesInSystem) * 100;
+				if (fileScrubEvent != null) fileScrubEvent(Path.GetFileName(path), progress);
 			}
+		}
+
+		public int GetNumberOfFilesInSystem(string root)
+		{
+			int targetFiles = 0;
+			Stack<string> dirs = new Stack<string>();
+			dirs.Push(root);
+
+			while (dirs.Count > 0)
+			{
+				string dir = dirs.Pop();
+
+				targetFiles += Directory.GetFiles(dir).Length;
+
+				foreach (var item in Directory.EnumerateDirectories(dir))
+				{
+					dirs.Push(item);
+				}
+			}
+			return targetFiles;
 		}
 
 		public void ScrubFile(string path)
@@ -182,7 +223,7 @@ namespace RecipeGUI
 			foreach (string group in groups)
 			{
 				if (groupNames.Contains(group)) return;
-				if (readVanillaLists && vanillaGroupNames.Contains(group)) return;
+				if (vanillaListsExist && vanillaGroupNames.Contains(group)) return;
 				groupNames.Add(group);
 			}
 
@@ -192,7 +233,7 @@ namespace RecipeGUI
 			foreach (string key in currencyInputs.Keys)
 			{
 				if (currencies.Contains(key)) return;
-				if (readVanillaLists && vanillaCurrencies.Contains(key)) return;
+				if (vanillaListsExist && vanillaCurrencies.Contains(key)) return;
 				currencies.Add(key);
 			}
 		}

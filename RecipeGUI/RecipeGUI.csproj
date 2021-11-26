@@ -75,11 +75,11 @@
       <DependentUpon>DatascrubberWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="IControlMenuOption.cs" />
-    <Compile Include="Install Wizard\InstallerStage2.xaml.cs">
-      <DependentUpon>InstallerStage2.xaml</DependentUpon>
+    <Compile Include="Install Wizard\InstallStage3.xaml.cs">
+      <DependentUpon>InstallStage3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Install Wizard\InstallerStage3.xaml.cs">
-      <DependentUpon>InstallerStage3.xaml</DependentUpon>
+    <Compile Include="Install Wizard\InstallStage2.xaml.cs">
+      <DependentUpon>InstallStage2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Install Wizard\InstallStage1.xaml.cs">
       <DependentUpon>InstallStage1.xaml</DependentUpon>
@@ -120,13 +120,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Install Wizard\InstallerStage2.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Install Wizard\InstallStage3.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Install Wizard\InstallerStage3.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Install Wizard\InstallStage2.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Install Wizard\InstallStage1.xaml">
       <SubType>Designer</SubType>

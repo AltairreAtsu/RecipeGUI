@@ -8,6 +8,7 @@ namespace RecipeGUI
 {
 	class Lang
 	{
+		// TODO: Delete File if possible
 		public static string currentlyScrubbing = "Currently scrubbing provided mod directory.";
 		public static string exportingFiles = "Scrubbing complete. Now exporting files to lists.";
 		public static string exportComplete = "Export complete.";

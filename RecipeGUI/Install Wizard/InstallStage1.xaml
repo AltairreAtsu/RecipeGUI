@@ -18,11 +18,23 @@
 				<ColumnDefinition Width="83*"/>
 			</Grid.ColumnDefinitions>
 			<Image Source="Icon.png" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" Text="Greetings! It looks like you're running the application for the first time!"/>
+			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" 
+					   Text="Greetings! It looks like you're running the application for the first time! Before you get started the application needs to read your unpacked Starbound Assets. This process may take a few minutes to complete so be prepared!"/>
 		</Grid>
+		<StackPanel Grid.Row="1" Margin="10,0,10,0">
+			<Label FontSize="15" Content="Starbound Unpacked Assets:"/>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="7*"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<TextBox x:Name="UnpackedDirectory_Field"/>
+				<Button x:Name="OpenDirectorySearch_Button" Grid.Column="1" Content=". . ." Padding="3" FontSize="15" Click="OpenDirectorySearch_Button_Click"/>
+			</Grid>
+
+		</StackPanel>
 		<DockPanel LastChildFill="False" Grid.Row="2">
-			<Button Content="Continue" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,3"/>
-			<Button Content="Skip" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,3"/>
+			<Button x:Name="ContinueInstall_Button" Content="Continue" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,3" Click="ContinueInstall_Button_Click"/>
 		</DockPanel>
 	</Grid>
 

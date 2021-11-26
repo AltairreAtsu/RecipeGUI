@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using RecipeGUI.ControlMenuOptions.File;
 using RecipeGUI.ControlMenuOptions.Other;
 using RecipeGUI.Preferences_Window;
+using RecipeGUI.Install_Wizard;
 
 namespace RecipeGUI
 {
@@ -37,6 +38,8 @@ namespace RecipeGUI
 		private PreferencesWindow preferencesWindow;
 		private PreferencesManager preferencesManager;
 
+		private InstallWindow installWindow;
+
 		private DatascrubberWindow datascrubberWindow;
 
 		private string loadedFilePath;
@@ -44,6 +47,13 @@ namespace RecipeGUI
 		public RecipeEditorWindow()
 		{
 			InitializeComponent();
+			if(!Directory.Exists(Environment.CurrentDirectory + "\\Lists\\Vanilla Lists"))
+			{
+				InstallWindow installWindow = new InstallWindow();
+				installWindow.Show();
+				Close();
+			}
+
 			recipeWindow = this;
 
 			inputItemsControls = new List<InputItemControl>();
@@ -99,7 +109,6 @@ namespace RecipeGUI
 			Other_MenuItem.InitializeOptions(list);
 		}
 	
-
 		#region Input and Group Controls
 		private void AddInputItem_Click(object sender, RoutedEventArgs e)
 		{

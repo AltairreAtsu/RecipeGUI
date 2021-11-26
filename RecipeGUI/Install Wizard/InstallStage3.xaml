@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="RecipeGUI.Install_Wizard.InstallerStage2"
+﻿<UserControl x:Class="RecipeGUI.Install_Wizard.InstallStage3"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,25 +18,21 @@
 				<ColumnDefinition Width="83*"/>
 			</Grid.ColumnDefinitions>
 			<Image Source="Icon.png" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" Text="Please Locate your Starbound unpacked folder."/>
+			<TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="15" 
+					   Text="Congratulations! The install was completed and the application is now ready to use. Enjoy!"/>
 		</Grid>
 		<StackPanel Grid.Row="1" Margin="10,0,10,0">
-			<Label FontSize="15" Content="Starbound Unpacked Assets:"/>
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="7*"/>
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
-				<TextBox/>
-				<Button Grid.Column="1" Content=". . ." Padding="3" FontSize="15"/>
 			</Grid>
 
 		</StackPanel>
-		<DockPanel Grid.Row="2" LastChildFill="False">
-			<Button Content="Back" FontSize="20" Margin="5" Padding="10,2,10,2"/>
-			<Button Content="Continue" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,0,10,0"/>
-			<Button Content="Skip" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,0,10,0"/>
-
+		<DockPanel LastChildFill="False" Grid.Row="2">
+			<Button x:Name="FinishInstall_Button" Content="Finish" FontSize="20" DockPanel.Dock="Right" Margin="5" Padding="10,3" Click="FinishInstall_Click"/>
 		</DockPanel>
 	</Grid>
+
 </UserControl>

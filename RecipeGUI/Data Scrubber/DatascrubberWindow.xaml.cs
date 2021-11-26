@@ -79,7 +79,8 @@ namespace RecipeGUI
 				}
 			}
 
-			scrubber.Run(rootPath, outputPath, ScrubStatusEvent, recipeEditorWindow.GetListLoader());
+			scrubber.statusUpdateEvent += ScrubStatusEvent;
+			scrubber.RunAndLoad(rootPath, outputPath, recipeEditorWindow.GetListLoader());
 			ScrubStartButton.IsEnabled = true;
 		}
 

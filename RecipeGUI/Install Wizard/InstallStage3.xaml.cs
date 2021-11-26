@@ -12,17 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinForms = System.Windows.Forms;
 
 namespace RecipeGUI.Install_Wizard
 {
 	/// <summary>
-	/// Interaction logic for InstallerStage3.xaml
+	/// Interaction logic for InstallStage1.xaml
 	/// </summary>
-	public partial class InstallerStage3 : UserControl
+	public partial class InstallStage3 : UserControl
 	{
-		public InstallerStage3()
+		public InstallWindow installWindow;
+
+		public InstallStage3()
 		{
 			InitializeComponent();
 		}
+		
+		private void FinishInstall_Click(Object sender, RoutedEventArgs e)
+		{
+			installWindow.OpenMainApp();
+		}
+
 	}
 }

@@ -7,5 +7,4 @@
         mc:Ignorable="d"
 		Style="{DynamicResource StarboundWindow}"
         Title="InstallWindow" Height="274" Width="480">
-	<local:InstallStage1/>
 </Window>
