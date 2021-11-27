@@ -1,0 +1,34 @@
+﻿<Window x:Class="RecipeGUI.CSV_Parser.CSVExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeGUI"
+        mc:Ignorable="d"
+		Closing="Window_Closing"
+		ResizeMode="NoResize"
+		Style="{DynamicResource StarboundWindow}"
+        Title="CSVExportWindow" Height="200" Width="600">
+	<StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="75*"/>
+				<ColumnDefinition Width="141*"/>
+				<ColumnDefinition Width="80*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Label Content="CSV File Location:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+			<TextBox x:Name="CSVFilePath_Field" Grid.Column="1" Grid.Row="0" Margin="0,13"/>
+			<Button Content="Locate File" Grid.Column="2" Grid.Row="0" Margin="20,7" Click="LocateFile_Click"/>
+
+			<Label Content="Recipe Output Folder:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+			<TextBox x:Name="OutputFolder_Field" Grid.Column="1" Grid.Row="1" Margin="0,13"/>
+			<Button Content="Locate Folder" Grid.Column="2" Grid.Row="1" Margin="20,7" Click="LocateOutput_Click"/>
+		</Grid>
+		<Button Content="Export" x:Name="ExportStartButton"  Click="BeginExport_Click" HorizontalAlignment="Center" Height="30" Width="120" />
+	</StackPanel>
+</Window>

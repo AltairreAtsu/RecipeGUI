@@ -18,6 +18,7 @@ using RecipeGUI.ControlMenuOptions.File;
 using RecipeGUI.ControlMenuOptions.Other;
 using RecipeGUI.Preferences_Window;
 using RecipeGUI.Install_Wizard;
+using RecipeGUI.CSV_Parser;
 
 namespace RecipeGUI
 {
@@ -38,9 +39,8 @@ namespace RecipeGUI
 		private PreferencesWindow preferencesWindow;
 		private PreferencesManager preferencesManager;
 
-		private InstallWindow installWindow;
-
 		private DatascrubberWindow datascrubberWindow;
+		private CSVExportWindow CSVExportWindow;
 
 		private string loadedFilePath;
 
@@ -105,6 +105,7 @@ namespace RecipeGUI
 		{
 			var list = new List<IControlMenuOption>();
 			list.Add(new DataScrubberWindowOption());
+			list.Add(new ExportFromCSVOption());
 			list.Add(new PreferencesWindowOption());
 			Other_MenuItem.InitializeOptions(list);
 		}
@@ -369,6 +370,11 @@ namespace RecipeGUI
 			datascrubberWindow = null;
 		}
 
+		public void OnCSVExportWindowClose()
+		{
+			CSVExportWindow = null;
+		}
+
 		public void setCurrencyDictionary(Dictionary<string, int> currencyInputs)
 		{
 			this.currencyInputs = currencyInputs;
@@ -406,6 +412,14 @@ namespace RecipeGUI
 			datascrubberWindow = new DatascrubberWindow();
 			datascrubberWindow.recipeEditorWindow = this;
 			datascrubberWindow.Show();
+		}
+		public void OpenCSVExporter()
+		{
+			if (CSVExportWindow != null) return;
+
+			CSVExportWindow = new CSVExportWindow();
+			CSVExportWindow.recipeEditorWindow = this;
+			CSVExportWindow.Show();
 		}
 
 		public bool SaveRecipe()

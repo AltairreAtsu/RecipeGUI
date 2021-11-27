@@ -14,5 +14,6 @@ namespace RecipeGUI
 		void LoadRecipe(Recipe recipe, string path);
 		void OpenPrefrencesWindow();
 		void OpenDatascrubberWindow();
+		void OpenCSVExporter();
 	}
 }
