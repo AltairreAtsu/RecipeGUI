@@ -24,6 +24,9 @@ namespace RecipeGUI
 		private bool vanillaListsExist = false;
 		private double totalFilesInSystem = 0;
 		private double scrubbedFiles = 0;
+		private bool hasWarned = false;
+		private bool exitScrubbing = false;
+		private const int WARNING_THRESHOLD = 5000;
 
 		// TODO: Remove this delegate and it calls
 		public delegate void StatusEvent(string eventText);
@@ -31,6 +34,9 @@ namespace RecipeGUI
 
 		public delegate void ProcessCompleteEvent();
 		public ProcessCompleteEvent processCompleteEvent;
+
+		public delegate bool FileQuantityWarningEvent();
+		public FileQuantityWarningEvent fileQuantityWarningEvent;
 
 		public delegate void FileScrubEvent(string fileName, double percentage);
 		public FileScrubEvent fileScrubEvent;
@@ -44,8 +50,18 @@ namespace RecipeGUI
 			groupNames = new List<string>();
 			currencies = new List<string>();
 
+			hasWarned = false;
+			exitScrubbing = false;
+			scrubbedFiles = 0;
+			totalFilesInSystem = 0;
+
 			vanillaListsExist = ReadVanillaLists();
 			totalFilesInSystem = GetNumberOfFilesInSystem(searchRoot);
+			if (exitScrubbing)
+			{
+				if (statusUpdateEvent != null) statusUpdateEvent(Lang.exportCanceld);
+				return;
+			}
 
 			if (statusUpdateEvent != null) statusUpdateEvent(Lang.currentlyScrubbing);
 			ScrubDirectories(searchRoot);
@@ -169,6 +185,17 @@ namespace RecipeGUI
 
 			while (dirs.Count > 0)
 			{
+				if(targetFiles >= WARNING_THRESHOLD && !hasWarned)
+				{
+					hasWarned = true;
+					if (fileQuantityWarningEvent != null)
+						if (fileQuantityWarningEvent())
+						{
+							exitScrubbing = true;
+							return 0;
+						}
+					
+				}
 				string dir = dirs.Pop();
 
 				targetFiles += Directory.GetFiles(dir).Length;

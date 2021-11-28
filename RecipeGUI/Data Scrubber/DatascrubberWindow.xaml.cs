@@ -80,6 +80,7 @@ namespace RecipeGUI
 			}
 
 			scrubber.statusUpdateEvent += ScrubStatusEvent;
+			scrubber.fileQuantityWarningEvent += FileQuantityWarning;
 			scrubber.RunAndLoad(rootPath, outputPath, recipeEditorWindow.GetListLoader());
 			ScrubStartButton.IsEnabled = true;
 		}
@@ -98,6 +99,12 @@ namespace RecipeGUI
 				}
 			}
 			return false;
+		}
+
+		private bool FileQuantityWarning()
+		{
+			var result = MessageBox.Show(Lang.fileWarningContent, Lang.fileWarningTitle, MessageBoxButton.YesNo);
+			return result == MessageBoxResult.No;
 		}
 
 		private void ScrubStatusEvent(string eventMessage)
