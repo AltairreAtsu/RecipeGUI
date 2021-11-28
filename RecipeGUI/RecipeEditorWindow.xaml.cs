@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -269,10 +268,10 @@ namespace RecipeGUI
 		#endregion
 
 		#region Parsing Values
-		private ParsingResult ParseCurrencies()
+		private CurrencyParsingResult ParseCurrencies()
 		{
 			var currencyInputs = new Dictionary<string, int>();
-			var parsingResult = new ParsingResult();
+			var parsingResult = new CurrencyParsingResult();
 
 
 			if (currencyControls.Count == 0)
@@ -285,15 +284,19 @@ namespace RecipeGUI
 				var input = control.GetCurrencyInput();
 				if (input.amount == null)
 				{
-					System.Windows.MessageBox.Show("Parsing Error! Amount of " + input.name + "not set to numerical value! Canceling Export.");
-					parsingResult.parsingFailed = true;
-					return parsingResult;
+					return WarnUserCurrencyParsingFailure("Parsing Error! Amount of " + input.name + " not set to numerical value! Canceling Export.");
+				}
+				if (input.amount < 0)
+				{
+					return WarnUserCurrencyParsingFailure("Parsing Error! Amount of " + input.name + " is set to a negative value. Please use only positive values!");
+				}
+				if (input.name.Equals(""))
+				{
+					return WarnUserCurrencyParsingFailure("Blank currency name detected. Please remove any unammed currency fields.");
 				}
 				if (currencyInputs.ContainsKey(input.name))
 				{
-					System.Windows.MessageBox.Show("Duplicate Currency name detected. Please ensure only one input exists for key " + input.name + ".");
-					parsingResult.parsingFailed = true;
-					return parsingResult;
+					return WarnUserCurrencyParsingFailure("Duplicate Currency name detected. Please ensure only one input exists for key " + input.name + ".");
 				}
 				currencyInputs.Add(input.name, (int)input.amount);
 			}
@@ -302,17 +305,34 @@ namespace RecipeGUI
 			return parsingResult;
 		}
 
-		private string[] ParseGroups()
+		private CurrencyParsingResult WarnUserCurrencyParsingFailure(string message)
 		{
-			if (groupControls.Count == 0) return null;
+			MessageBox.Show(message);
+			return new CurrencyParsingResult() { parsingFailed = true };
+		}
+
+		private GenericParsingResult ParseGroups()
+		{
+			if (groupControls.Count == 0) return new GenericParsingResult(null, false);
 
 			List<string> groupStrings = new List<string>();
 			foreach (GroupControl control in groupControls)
 			{
-				groupStrings.Add(control.SuggesrionField.SuggestionTextField.Text);
+				string group = control.SuggesrionField.SuggestionTextField.Text;
+				if (group.Equals(""))
+				{
+					MessageBox.Show("Blank group name detected! Please remove any blank or unusued group fields befor exporting.");
+					return new GenericParsingResult(null, true);
+				}
+				if ( groupStrings.Contains(group))
+				{
+					MessageBox.Show("Multiple occurences of group key: " + group + " detected. Please remove all duplicate keys before exporting.");
+					return new GenericParsingResult(null, true);
+				}
+				groupStrings.Add(group);
 
 			}
-			return groupStrings.ToArray();
+			return new GenericParsingResult(groupStrings.ToArray(), false);
 		}
 
 		private RecipeItem[] TryParseInputItems()
@@ -324,9 +344,26 @@ namespace RecipeGUI
 				List<RecipeItem> items = new List<RecipeItem>();
 				foreach (InputItemControl control in inputItemsControls)
 				{
-					items.Add(new RecipeItem(
-						control.InputItemSuggestionField.SuggestionTextField.Text,
-						int.Parse(control.CountField.Text)));
+					string itemName = control.InputItemSuggestionField.SuggestionTextField.Text;
+					int amount = int.Parse(control.CountField.Text);
+
+					if (itemName.Equals(""))
+					{
+						MessageBox.Show("Blank Input item name detected. Please remove any blank or unused input item fields.");
+						return null;
+					}
+					if (RecipeItemsContainsItem(items, itemName))
+					{
+						MessageBox.Show("Multiple occurences of input item: " + itemName + " detected. Please remove all duplicate item names before exporting.");
+						return null;
+					}
+					if(amount < 0)
+					{
+						MessageBox.Show("Input item " + itemName + " has a negative amount value! Please ensure only positive values are used.");
+						return null;
+					}
+
+					items.Add(new RecipeItem(itemName, amount));
 				}
 				return items.ToArray();
 			}
@@ -337,18 +374,39 @@ namespace RecipeGUI
 			}
 		}
 
+		private bool RecipeItemsContainsItem(List<RecipeItem> items, string queryItem)
+		{
+			foreach(RecipeItem item in items)
+			{
+				if (item.item.Equals(queryItem)) return true;
+			}
+			return false;
+		}
+
 		private RecipeItem TryParseOutput()
 		{
 			try
 			{
 				string name = OutputSuggestionField.SuggestionTextField.Text;
 				int count = int.Parse(OutputItemCountField.Text);
+
+				if (name.Equals(""))
+				{
+					MessageBox.Show("Output item name cannot be blank. Please specify the output item name before exporting.");
+					return null;
+				}
+				if(count < 0)
+				{
+					MessageBox.Show("Output item amount cannot be a negative value! Please ensure only positive values are used.");
+					return null;
+				}
+
 				RecipeItem output = new RecipeItem(name, count);
 				return output;
 			}
 			catch
 			{
-				System.Windows.MessageBox.Show("Error Parsing Output Item! Please ensure only numeric values are used in the count field.");
+				MessageBox.Show("Error Parsing Output Item! Please ensure only numeric values are used in the count field.");
 				return null;
 			}
 		}
@@ -444,9 +502,9 @@ namespace RecipeGUI
 			if (output == null) return;
 			recipe.input = input;
 
-			string[] groups = ParseGroups();
-			if (groups == null) return;
-			recipe.groups = groups;
+			var groupParsingResult = ParseGroups();
+			if (groupParsingResult.values == null || groupParsingResult.parsingFailed) return;
+			recipe.groups = groupParsingResult.values;
 
 			var parsingResult = ParseCurrencies();
 			if (parsingResult.parsingFailed)
@@ -463,7 +521,10 @@ namespace RecipeGUI
 			if (!sucess)
 			{
 				System.Windows.MessageBox.Show("Error Writing Json file, is the output path correctly formated?");
+				return;
 			}
+
+			loadedFilePath = path;
 		}
 
 		public void LoadRecipe(Recipe recipe, string path)
@@ -498,8 +559,18 @@ namespace RecipeGUI
 	}
 }
 
-public class ParsingResult
+public class CurrencyParsingResult
 {
 	public Dictionary<string, int> currencyInputs;
+	public bool parsingFailed = false;
+}
+public class GenericParsingResult
+{
+	public GenericParsingResult(string[] values, bool parsingFailed)
+	{
+		this.values = values;
+		this.parsingFailed = parsingFailed;
+	}
+	public string[] values;
 	public bool parsingFailed = false;
 }

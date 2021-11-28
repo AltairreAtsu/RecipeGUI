@@ -50,11 +50,8 @@ namespace RecipeGUI.Install_Wizard
 
 			if (!IsPackedAssetsDirectory(searchDirectory))
 			{
-				var result = MessageBox.Show("Warning!", "The provided directory does not contain Starbounds _metadata file and may not contain your unpacked assets. Do you want to proceed?", MessageBoxButton.YesNo);
-				if (result == MessageBoxResult.No)
-				{
-					return;
-				}
+				MessageBox.Show("Warning! The selected file does not contain Starbounds _metadata file. Please navigate to your unpacked assets folder.");
+				return;
 			}
 
 			SwitchDisplay(installStage2);
