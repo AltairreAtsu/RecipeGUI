@@ -17,11 +17,13 @@ namespace RecipeGUI.CSV_Parser
 		private const string FILENAME_KEY = "File Name";
 
 		private Dictionary<int, string> topRowValues;
+		private List<string> fileNames;
 
 		public void Run(string filePath, string outputPath, bool doPatch)
 		{
 			try
 			{
+				fileNames = new List<string>();
 				List<NamedRecipe> recipes = BeginParse(filePath);
 				WriteRecipes(recipes, outputPath, doPatch);
 			}
@@ -78,11 +80,14 @@ namespace RecipeGUI.CSV_Parser
 				switch (topRowValues[i])
 				{
 					case FILENAME_KEY:
+
+						if (fileNames.Contains(value)) throw new Exception("Error at cell row:" + row + " column:" + i + " Every recipe must have a unique file name! Please remove or change duplicate occurences of: " + value);
 						name = value;
+						fileNames.Add(name);
 						break;
 
 					case GROUP_KEY:
-						if (groups.Contains(value)) throw new Exception("Eror at cell row:" + row + " column:" + i + " A single ecipe cannot contain a duplicate group key.  Please remove all duplicate keys.");
+						if (groups.Contains(value)) throw new Exception("Eror at cell row:" + row + " column:" + i + " A single recipe cannot contain a duplicate group key.  Please remove all duplicate keys.");
 						groups.Add(value);
 						break;
 
@@ -183,10 +188,11 @@ namespace RecipeGUI.CSV_Parser
 				string value = values[i];
 
 				if (value.Equals(""))
-					throw new Exception("Top Row must not contain empty cells! Error at row:" + i);
+					throw new Exception("Top Row must not contain empty cells! Error at column:" + i);
 
 				if (i > 0 && KeyRequiresQuantity(topRowValues[i - 1]))
-					if (!value.Equals(QUANTITY_KEY)) throw new Exception(topRowValues[i - 1] + " key at row:" + i + " must be followed by a quanity row.");
+					if (!value.Equals(QUANTITY_KEY)) throw new Exception(topRowValues[i - 1] + " key at column:" + i + " must be followed by a quanity row.");
+				if (i > 0 && value.Equals(QUANTITY_KEY) && !KeyRequiresQuantity(topRowValues[i - 1])) throw new Exception("Quantity key at column: " + i + " must be preceeded by Input Item, Output Item, or Currency column!");
 
 				if (value.Equals(OUTPUT_KEY))
 				{
@@ -226,7 +232,7 @@ namespace RecipeGUI.CSV_Parser
 					continue;
 				}
 
-				throw new Exception("Key " + value + " at row " + (i + 1) + " not recognized! Please ensure only provided keys are used.");
+				throw new Exception("Key " + value + " at column " + i + " not recognized! Please ensure only provided keys are used.");
 			}
 			return false;
 		}

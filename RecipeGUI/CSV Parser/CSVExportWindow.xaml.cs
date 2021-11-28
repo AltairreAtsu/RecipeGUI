@@ -47,6 +47,7 @@ namespace RecipeGUI.CSV_Parser
 			catch(Exception E)
 			{
 				MessageBox.Show(E.Message);
+				ExportStartButton.IsEnabled = true;
 			}
 			
 		}
