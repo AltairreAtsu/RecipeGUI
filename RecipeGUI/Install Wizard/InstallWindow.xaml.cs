@@ -44,13 +44,13 @@ namespace RecipeGUI.Install_Wizard
 		{
 			if (!Directory.Exists(searchDirectory))
 			{
-				MessageBox.Show("Warning! Application could not locate provided directory, please navigate to your unpacked assets folder.");
+				MessageBox.Show("Warning! The application could not locate the provided directory, please navigate to your unpacked assets folder.");
 				return;
 			}
 
 			if (!IsPackedAssetsDirectory(searchDirectory))
 			{
-				MessageBox.Show("Warning! The selected file does not contain Starbounds _metadata file. Please navigate to your unpacked assets folder.");
+				MessageBox.Show("Warning! The selected file does not contain Starbound's _metadata file. Please navigate to your unpacked assets folder.");
 				return;
 			}
 

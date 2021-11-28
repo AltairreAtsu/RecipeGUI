@@ -284,19 +284,19 @@ namespace RecipeGUI
 				var input = control.GetCurrencyInput();
 				if (input.amount == null)
 				{
-					return WarnUserCurrencyParsingFailure("Parsing Error! Amount of " + input.name + " not set to numerical value! Canceling Export.");
+					return WarnUserCurrencyParsingFailure("Parsing Error: Amount of " + input.name + " not set to numerical value! Canceling Export.");
 				}
 				if (input.amount < 0)
 				{
-					return WarnUserCurrencyParsingFailure("Parsing Error! Amount of " + input.name + " is set to a negative value. Please use only positive values!");
+					return WarnUserCurrencyParsingFailure("Parsing Error: Amount of " + input.name + " is set to a negative value. Please use only positive values.");
 				}
 				if (input.name.Equals(""))
 				{
-					return WarnUserCurrencyParsingFailure("Blank currency name detected. Please remove any unammed currency fields.");
+					return WarnUserCurrencyParsingFailure("Blank currency name detected. Please remove any unnamed currency fields.");
 				}
 				if (currencyInputs.ContainsKey(input.name))
 				{
-					return WarnUserCurrencyParsingFailure("Duplicate Currency name detected. Please ensure only one input exists for key " + input.name + ".");
+					return WarnUserCurrencyParsingFailure("Multiple occurrences of currency key: " + input.name + " detected please remove all duplicate keys before exporting.");
 				}
 				currencyInputs.Add(input.name, (int)input.amount);
 			}
@@ -321,7 +321,7 @@ namespace RecipeGUI
 				string group = control.SuggesrionField.SuggestionTextField.Text;
 				if (group.Equals(""))
 				{
-					MessageBox.Show("Blank group name detected! Please remove any blank or unusued group fields befor exporting.");
+					MessageBox.Show("Blank group name detected! Please remove any blank group fields before exporting.");
 					return new GenericParsingResult(null, true);
 				}
 				if ( groupStrings.Contains(group))
@@ -359,7 +359,7 @@ namespace RecipeGUI
 					}
 					if(amount < 0)
 					{
-						MessageBox.Show("Input item " + itemName + " has a negative amount value! Please ensure only positive values are used.");
+						MessageBox.Show("Input item " + itemName + "  is set to a negative value. Please ensure only positive values are used.");
 						return null;
 					}
 
@@ -369,7 +369,7 @@ namespace RecipeGUI
 			}
 			catch
 			{
-				System.Windows.MessageBox.Show("Error Parsing Input Items. Please ensure only numeric values are used in count fields.");
+				MessageBox.Show("Parsing Error: Please ensure only numeric values are used in Input Item count fields.");
 				return null;
 			}
 		}
@@ -397,7 +397,7 @@ namespace RecipeGUI
 				}
 				if(count < 0)
 				{
-					MessageBox.Show("Output item amount cannot be a negative value! Please ensure only positive values are used.");
+					MessageBox.Show("Output item count cannot be a negative value! Please ensure only positive values are used.");
 					return null;
 				}
 
@@ -406,7 +406,7 @@ namespace RecipeGUI
 			}
 			catch
 			{
-				MessageBox.Show("Error Parsing Output Item! Please ensure only numeric values are used in the count field.");
+				MessageBox.Show("Parsing Error: Please ensure only numeric values are used in the Output count field.");
 				return null;
 			}
 		}
@@ -520,7 +520,7 @@ namespace RecipeGUI
 			bool sucess = RecipeJsonHandler.WriteJson(path, recipe, preferencesManager.doCreatePatch, preferencesManager.doOverridePatchFile);
 			if (!sucess)
 			{
-				System.Windows.MessageBox.Show("Error Writing Json file, is the output path correctly formated?");
+				MessageBox.Show("Error Writing Json file, is the output path correctly formatted?");
 				return;
 			}
 

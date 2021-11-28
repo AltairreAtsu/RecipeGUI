@@ -23,7 +23,7 @@ namespace RecipeGUI.ControlMenuOptions.File
 				Recipe recipe = RecipeJsonHandler.ReadJson(filePath);
 				if(recipe == null)
 				{
-					MessageBox.Show("Error Loading the specifid file, please try again.");
+					MessageBox.Show("Error Loading the specified  file, please try again.");
 					return;
 				}
 				RecipeEditorWindow.recipeWindow.LoadRecipe(recipe, filePath);

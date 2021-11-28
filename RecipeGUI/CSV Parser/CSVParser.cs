@@ -51,7 +51,7 @@ namespace RecipeGUI.CSV_Parser
 					recipes.Add(ReadRow(SplitLine(lines[i]), i));
 				}
 
-				if (recipes.Count == 0) throw new Exception("No Recipes found on provided CSV Sheet.");
+				if (recipes.Count == 0) throw new Exception("No recipes were found on the provided CSV Sheet.");
 				return recipes;
 			}
 			catch (Exception E)
@@ -81,13 +81,13 @@ namespace RecipeGUI.CSV_Parser
 				{
 					case FILENAME_KEY:
 
-						if (fileNames.Contains(value)) throw new Exception("Error at cell row:" + row + " column:" + i + " Every recipe must have a unique file name! Please remove or change duplicate occurences of: " + value);
+						if (fileNames.Contains(value)) throw new Exception("Error at cell row: " + row + " column: " + i + ", every recipe must have a unique file name! Please remove or change duplicate occurrences of: " + value);
 						name = value;
 						fileNames.Add(name);
 						break;
 
 					case GROUP_KEY:
-						if (groups.Contains(value)) throw new Exception("Eror at cell row:" + row + " column:" + i + " A single recipe cannot contain a duplicate group key.  Please remove all duplicate keys.");
+						if (groups.Contains(value)) throw new Exception("Error at cell row: " + row + " column: " + i + ", a single recipe cannot contain a duplicate group key.  Please remove all duplicate occurrences of: " + value);
 						groups.Add(value);
 						break;
 
@@ -100,11 +100,11 @@ namespace RecipeGUI.CSV_Parser
 						}
 						catch (FormatException)
 						{
-							throw new Exception("Error at cell row:" + row + " column:" + i + " failed to parse quantity. Please ensure only numerical values are used.");
+							throw new Exception("Error at cell row: " + row + " column: " + i + ", failed to parse quantity. Please ensure only numerical values are used.");
 						}
 						catch (ArgumentNullException)
 						{
-							throw new Exception("Error at cell row:" + row + " column:" + i + " quantity cannot be empty or null. Please provide a numerical value.");
+							throw new Exception("Error at cell row: " + row + " column: " + i + ", quantity cell cannot be empty or null. Please provide a numerical value.");
 						}
 						catch (Exception E)
 						{
@@ -115,18 +115,18 @@ namespace RecipeGUI.CSV_Parser
 					case INPUT_KEY:
 						try
 						{
-							if (InputContainsKey(input, value)) throw new Exception("Error at cell row:" + row + " column:" + i + " a single recipe cannot contain a duplicate input item key. Please remove all duplicate keys.");
+							if (InputContainsKey(input, value)) throw new Exception("Error at cell row: " + row + " column: " + i + ", a single recipe cannot contain a duplicate input item name. Please remove all duplicate names.");
 							int quantity = int.Parse(values[i + 1]);
 							input.Add(new RecipeItem(value, quantity));
 							i++;
 						}
 						catch(FormatException)
 						{
-							throw new Exception("Error at cell row:" + row + " column:" + i + " failed to parse quantity. Please ensure only numerical values are used!");
+							throw new Exception("Error at cell row: " + row + " column: " + i + ", failed to parse quantity cell. Please ensure only numerical values are used.");
 						}
 						catch(ArgumentNullException)
 						{
-							throw new Exception("Error at cell row:" + row + " column:" + i + " quantity cannot be empty or null. Please provide a numerical value.");
+							throw new Exception("Error at cell row: " + row + " column: " + i + ", quantity cell cannot be empty or null. Please provide a numerical value.");
 						}
 						catch (Exception E)
 						{
@@ -144,11 +144,11 @@ namespace RecipeGUI.CSV_Parser
 						}
 						catch (FormatException)
 						{
-							throw new Exception("Error at cell row:" + row + " column:" + i + " failed to parse quantity. Please ensure only numerical values are used!");
+							throw new Exception("Error at cell row: " + row + " column: " + i + ", failed to parse quantity cell. Please ensure only numerical values are used.");
 						}
 						catch (ArgumentNullException)
 						{
-							throw new Exception("Error at cell row:" + row + " column:" + i + " quantity cannot be empty or null. Please provide a numerical value.");
+							throw new Exception("Error at cell row: " + row + " column: " + i + ", quantity cell cannot be empty or null. Please provide a numerical value.");
 						}
 						catch (Exception E)
 						{
@@ -157,13 +157,13 @@ namespace RecipeGUI.CSV_Parser
 						break;
 
 					default:
-						throw new Exception("Error at cell row:" + row + " column:" + i + " unrecognized header key. Please ensure top row uses only protected keys.");
+						throw new Exception("Error at cell row: " + row + " column: " + i + ", unrecognized header key. Please ensure the top row uses only protected keys.");
 				}
 			}
 
-			if (name.Equals("")) throw new Exception("Error at row:" + row + " a recipe file must contain a file name!");
-			if (output == null) throw new Exception("Error at row:" + row + " a recipe file must contain an output item!");
-			if (input.Count == 0) throw new Exception("Error at row:" + row + " a recipe file must contain at least one input item!");
+			if (name.Equals("")) throw new Exception("Error at row: " + row + ", a recipe file must contain a file name.");
+			if (output == null) throw new Exception("Error at row: " + row + ", a recipe file must contain an output item.");
+			if (input.Count == 0) throw new Exception("Error at row :" + row + ", a recipe file must contain at least one input item.");
 
 			r.output = output;
 			r.input = input.ToArray();
@@ -188,11 +188,11 @@ namespace RecipeGUI.CSV_Parser
 				string value = values[i];
 
 				if (value.Equals(""))
-					throw new Exception("Top Row must not contain empty cells! Error at column:" + i);
+					throw new Exception("Error at column: " + i + ", header row must not contain any empty cells.");
 
 				if (i > 0 && KeyRequiresQuantity(topRowValues[i - 1]))
-					if (!value.Equals(QUANTITY_KEY)) throw new Exception(topRowValues[i - 1] + " key at column:" + i + " must be followed by a quanity row.");
-				if (i > 0 && value.Equals(QUANTITY_KEY) && !KeyRequiresQuantity(topRowValues[i - 1])) throw new Exception("Quantity key at column: " + i + " must be preceeded by Input Item, Output Item, or Currency column!");
+					if (!value.Equals(QUANTITY_KEY)) throw new Exception("Error at column: " + i + ", header key: " + topRowValues[i - 1] + " must be followed by a quantity header key.");
+				if (i > 0 && value.Equals(QUANTITY_KEY) && !KeyRequiresQuantity(topRowValues[i - 1])) throw new Exception("Error at column: " + i + ", a quantity header key must be preceded by an Input Item, Output Item, or Currency header key.");
 
 				if (value.Equals(OUTPUT_KEY))
 				{
@@ -227,12 +227,12 @@ namespace RecipeGUI.CSV_Parser
 
 				if (value.Equals(FILENAME_KEY))
 				{
-					if (topRowValues.ContainsValue(FILENAME_KEY)) throw new Exception("Top row must only contain one File Name key!");
+					if (topRowValues.ContainsValue(FILENAME_KEY)) throw new Exception("Header row cannot contain more than one Output Item header key.!");
 					topRowValues.Add(i, value);
 					continue;
 				}
 
-				throw new Exception("Key " + value + " at column " + i + " not recognized! Please ensure only provided keys are used.");
+				throw new Exception("Header key: " + value + " at column " + i + " was not recognized! Please ensure only provided header keys are used.");
 			}
 			return false;
 		}

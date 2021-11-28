@@ -66,7 +66,7 @@ namespace RecipeGUI.Install_Wizard
 		private void InstallComplete()
 		{
 			ContinueInstall_Button.IsEnabled = true;
-			FileNameDisplay.Text = "Export Complete!";
+			FileNameDisplay.Text = "Export Complete.";
 		}
 
 		#region Thread Event Routing

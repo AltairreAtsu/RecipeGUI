@@ -8,7 +8,7 @@ namespace RecipeGUI.ControlMenuOptions.Other
 {
 	class ExportFromCSVOption : IControlMenuOption
 	{
-		private string name = "Export recipes from CSV";
+		private string name = "Export Recipes from CSV";
 		
 		public void Execute()
 		{

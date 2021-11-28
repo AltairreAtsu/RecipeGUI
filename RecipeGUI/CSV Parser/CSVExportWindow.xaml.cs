@@ -34,7 +34,7 @@ namespace RecipeGUI.CSV_Parser
 		{
 			if (!File.Exists(CSVFilePath_Field.Text))
 			{
-				MessageBox.Show("Target CSV could not be located! Please ensure a valid path is provided.");
+				MessageBox.Show("Target CSV sheet could not be located! Please ensure a valid path is provided.");
 				return;
 			}
 			try

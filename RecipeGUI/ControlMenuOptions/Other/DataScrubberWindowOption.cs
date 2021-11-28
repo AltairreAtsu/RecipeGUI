@@ -8,7 +8,7 @@ namespace RecipeGUI.ControlMenuOptions.Other
 {
 	class DataScrubberWindowOption : IControlMenuOption
 	{
-		private string name = "Datascrubber Tool";
+		private string name = "Data Scrubber Tool";
 		public void Execute()
 		{
 			RecipeEditorWindow.recipeWindow.OpenDatascrubberWindow();
