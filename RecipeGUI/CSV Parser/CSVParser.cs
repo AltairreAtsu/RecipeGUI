@@ -93,11 +93,11 @@ namespace RecipeGUI.CSV_Parser
 							output = new RecipeItem(value, quantity);
 							i++;
 						}
-						catch (FormatException E)
+						catch (FormatException)
 						{
 							throw new Exception("Error at cell row:" + row + " column:" + i + " failed to parse quantity. Please ensure only numerical values are used.");
 						}
-						catch (ArgumentNullException E)
+						catch (ArgumentNullException)
 						{
 							throw new Exception("Error at cell row:" + row + " column:" + i + " quantity cannot be empty or null. Please provide a numerical value.");
 						}
@@ -115,11 +115,11 @@ namespace RecipeGUI.CSV_Parser
 							input.Add(new RecipeItem(value, quantity));
 							i++;
 						}
-						catch(FormatException E)
+						catch(FormatException)
 						{
 							throw new Exception("Error at cell row:" + row + " column:" + i + " failed to parse quantity. Please ensure only numerical values are used!");
 						}
-						catch(ArgumentNullException E)
+						catch(ArgumentNullException)
 						{
 							throw new Exception("Error at cell row:" + row + " column:" + i + " quantity cannot be empty or null. Please provide a numerical value.");
 						}
@@ -137,11 +137,11 @@ namespace RecipeGUI.CSV_Parser
 							currencyInputs.Add(value, quantity);
 							i++;
 						}
-						catch (FormatException E)
+						catch (FormatException)
 						{
 							throw new Exception("Error at cell row:" + row + " column:" + i + " failed to parse quantity. Please ensure only numerical values are used!");
 						}
-						catch (ArgumentNullException E)
+						catch (ArgumentNullException)
 						{
 							throw new Exception("Error at cell row:" + row + " column:" + i + " quantity cannot be empty or null. Please provide a numerical value.");
 						}
