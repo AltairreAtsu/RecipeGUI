@@ -8,7 +8,8 @@
 		Closing="Window_Closing"
 		ResizeMode="NoResize"
 		Style="{DynamicResource StarboundWindow}"
-        Title="Prefrences" Height="175.869" Width="349">
+        Title="Prefrences" Height="175.869" Width="349"
+		Icon="/resources/window.ico">
 	<StackPanel>
 		<Label Content="Preferences:" FontSize="25"/>
 		<Grid>

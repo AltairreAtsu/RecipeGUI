@@ -8,7 +8,8 @@
 		Closing="Window_Closing"
 		ResizeMode="NoResize"
 		Style="{DynamicResource StarboundWindow}"
-        Title="CSVExportWindow" Height="200" Width="600">
+        Title="CSVExportWindow" Height="200" Width="600"
+		Icon="/resources/window.ico">
 	<StackPanel>
 		<Grid>
 			<Grid.ColumnDefinitions>

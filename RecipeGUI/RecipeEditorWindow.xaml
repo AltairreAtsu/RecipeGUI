@@ -8,7 +8,8 @@
 		Style="{DynamicResource StarboundWindow}"
 		ResizeMode="NoResize"
         Title="Recipe Editor" Height="453.001" Width="719"
-		MouseDown="root_MouseDown">
+		MouseDown="root_MouseDown"
+		Icon="resources/Window.ico">
 	<StackPanel>
 		<DockPanel Background="#2C2C2C" LastChildFill="False">
 			<local:ControlMenuItem x:Name="File_MenuItem"  Content="File" Margin="10,0,0,0"/>
