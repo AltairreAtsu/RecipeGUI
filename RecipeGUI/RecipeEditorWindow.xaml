@@ -60,7 +60,7 @@
 			<Label Content="Output Item:" FontSize="20"/>
 		<local:SuggestionBox x:Name="OutputSuggestionField" Width="150" FontSize="20" VerticalAlignment="Center"/>
 		<Label Content="Count:" FontSize="20"/>
-			<TextBox x:Name="OutputItemCountField" FontSize="20" Width="100" VerticalAlignment="Center"/>
+			<TextBox x:Name="OutputItemCountField" FontSize="20" Width="100" VerticalAlignment="Center" PreviewTextInput="OutputItemCountField_PreviewTextInput" DataObject.Pasting="OutputItemCountField_Pasting"/>
 		</StackPanel>
 	</StackPanel>
 </Window>

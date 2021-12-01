@@ -10,7 +10,7 @@ namespace RecipeGUI.Preferences_Window
 {
 	public class PreferencesManager
 	{
-		public bool doAutocomplete = false;
+		public bool doAutocomplete = true;
 		public bool doCreatePatch = false;
 		public bool doOverridePatchFile = false;
 

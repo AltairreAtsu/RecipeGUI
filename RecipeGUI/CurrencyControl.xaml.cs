@@ -56,5 +56,15 @@ namespace RecipeGUI
 			}
 			return new CurrencyInput(name, amount);
 		}
+
+		private void AmountTextField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			NumberboxValidator.PreviewTextInput(e);
+		}
+
+		private void AmountTextField_Pasting(object sender, DataObjectPastingEventArgs e)
+		{
+			NumberboxValidator.Pasting_Event(e);
+		}
 	}
 }

@@ -26,6 +26,8 @@ namespace RecipeGUI.Install_Wizard
 		private InstallStage2 installStage2;
 		private InstallStage3 installStage3;
 
+		private bool installComplete = false;
+
 		public InstallWindow()
 		{
 			InitializeComponent();
@@ -65,6 +67,7 @@ namespace RecipeGUI.Install_Wizard
 
 		public void OpenMainApp()
 		{
+			installComplete = true;
 			RecipeEditorWindow editorWindow = new RecipeEditorWindow();
 			editorWindow.Show();
 			Close();
@@ -87,6 +90,20 @@ namespace RecipeGUI.Install_Wizard
 			if (author.Equals("Chucklefish") && name.Equals("base")) return true;
 
 			return false;
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (installComplete) return;
+			var result = MessageBox.Show("Would you like to abort application installation?", "Warning:", MessageBoxButton.YesNo);
+			if(result == MessageBoxResult.Yes)
+			{
+				Directory.Delete(Environment.CurrentDirectory + "\\Lists\\Vanilla Lists", true);
+			}
+			else
+			{
+				e.Cancel = true;
+			}
 		}
 	}
 }

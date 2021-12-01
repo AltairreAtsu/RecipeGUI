@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RecipeGUI.Install_Wizard"
         mc:Ignorable="d"
 		Style="{DynamicResource StarboundWindow}"
+		Closing="Window_Closing"
         Title="InstallWindow" Height="274" Width="480"
 		Icon="/resources/window.ico">
 </Window>

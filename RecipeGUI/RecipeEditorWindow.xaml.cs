@@ -556,6 +556,16 @@ namespace RecipeGUI
 		{
 			return listLoader;
 		}
+
+		private void OutputItemCountField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			NumberboxValidator.PreviewTextInput(e);
+		}
+
+		private void OutputItemCountField_Pasting(object sender, DataObjectPastingEventArgs e)
+		{
+			NumberboxValidator.Pasting_Event(e);
+		}
 	}
 }
 

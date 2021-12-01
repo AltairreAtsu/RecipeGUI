@@ -43,5 +43,15 @@ namespace RecipeGUI
 			// Remove this GUI Item
 			window.RemoveInputElement(this);
 		}
+
+		private void CountField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			NumberboxValidator.PreviewTextInput(e);
+		}
+
+		private void CountField_Pasting(object sender, DataObjectPastingEventArgs e)
+		{
+			NumberboxValidator.Pasting_Event(e);
+		}
 	}
 }

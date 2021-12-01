@@ -26,7 +26,7 @@
 				<ColumnDefinition Width="14*"/>
 			</Grid.ColumnDefinitions>
 			<Label Content="Amount" VerticalAlignment="Center" Grid.Column="0"/>
-			<TextBox x:Name="AmountTextField" VerticalAlignment="Center" Text="0" Grid.Column="1"/>
+			<TextBox x:Name="AmountTextField" VerticalAlignment="Center" Text="0" Grid.Column="1" PreviewTextInput="AmountTextField_PreviewTextInput" DataObject.Pasting="AmountTextField_Pasting"/>
 			<Button x:Name="RemoveControlButton" Content="-" VerticalAlignment="Center" Click="RemoveControlButton_Click" Grid.Column="2"/>
 		</Grid>
 	</Grid>
