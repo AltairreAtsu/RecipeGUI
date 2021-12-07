@@ -12,11 +12,13 @@ namespace RecipeGUI
 		public RecipeItem[] input { get; set; }
 		public RecipeItem output { get; set; }
 		public string[] groups { get; set; }
+		public float duration;
 	}
 	public class RecipeItem
 	{
 		public string item { get; set; }
 		public int count { get; set; }
+		public Dictionary<String, Object> parameters;
 
 		public RecipeItem(string item, int count)
 		{

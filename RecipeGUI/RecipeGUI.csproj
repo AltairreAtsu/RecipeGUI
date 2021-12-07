@@ -215,5 +215,8 @@
   <ItemGroup>
     <Resource Include="resources\window.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\Cog.svg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

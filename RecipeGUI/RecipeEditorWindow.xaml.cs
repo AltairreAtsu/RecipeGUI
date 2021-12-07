@@ -383,6 +383,21 @@ namespace RecipeGUI
 			return false;
 		}
 
+		private float TryParseDuration()
+		{
+			try
+			{
+				float duration = 0;
+				float.TryParse(DurationField.Text, out duration);
+				return duration;
+			}
+			catch
+			{
+				MessageBox.Show("Failed to Parse Recipe durration, please ensure only numeric values are used in the durraiton field!");
+				return -1;
+			}
+		}
+
 		private RecipeItem TryParseOutput()
 		{
 			try
@@ -494,6 +509,11 @@ namespace RecipeGUI
 		{
 			Recipe recipe = new Recipe();
 
+			float duration = TryParseDuration();
+			if (duration == -1) return;
+			if(duration != 1.5)
+				recipe.duration = duration;
+
 			RecipeItem output = TryParseOutput();
 			if (output == null) return;
 			recipe.output = output;
@@ -565,6 +585,17 @@ namespace RecipeGUI
 		private void OutputItemCountField_Pasting(object sender, DataObjectPastingEventArgs e)
 		{
 			NumberboxValidator.Pasting_Event(e);
+		}
+
+		private void DurationField_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			TextBox tb = (TextBox)sender;
+			NumberboxValidator.PreviewTextInputFloat(e, tb.Text);
+		}
+
+		private void DurationField_Pasting(object sender, DataObjectPastingEventArgs e)
+		{
+			NumberboxValidator.Pasting_EventFloat(e);
 		}
 	}
 }

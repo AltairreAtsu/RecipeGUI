@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RecipeGUI"
-             mc:Ignorable="d" Height="50" Width="325.333">
-	<DockPanel Height="50" LastChildFill="False" Width="325">
+             mc:Ignorable="d" Height="50" Width="339.332">
+	<DockPanel Height="50" LastChildFill="False">
 		<Label Content="Item Name:" Height="28" VerticalAlignment="Center"/>
-		<local:SuggestionBox x:Name="InputItemSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="143" Margin="0,16"/>
+		<local:SuggestionBox x:Name="InputItemSuggestionField" HorizontalAlignment="Center" VerticalAlignment="Center" Width="125" Margin="0,16"/>
 		<Label Content="Count" Height="28" VerticalAlignment="Center" Margin="0,11"/>
 		<TextBox x:Name="CountField" Height="28" Text="0" VerticalAlignment="Center" Width="35" Margin="0,11" MaxLines="1" PreviewTextInput="CountField_PreviewTextInput" DataObject.Pasting="CountField_Pasting"/>
 		<Button x:Name="RemoveButton" Content="-" Height="30" VerticalAlignment="Center" Width="29" HorizontalAlignment="Center" Margin="3,10,0,10" Click="Button_Click"/>
+		<Button Width="25" Height="30" Margin="4,0,0,0">
+			<Path Fill="White" Data="M63.413,15.351C58.888,14.593 54.269,14.593 49.745,15.351L47.534,22.168C43.253,23.308 39.227,25.247 35.667,27.883L28.959,25.361C25.545,28.426 22.665,32.037 20.437,36.048L24.388,42.027C22.611,46.084 21.616,50.44 21.457,54.867L15.303,58.54C15.571,63.119 16.599,67.623 18.345,71.865L25.483,72.504C27.547,76.423 30.333,79.917 33.695,82.801L32.729,89.902C36.476,92.549 40.638,94.553 45.044,95.833L49.993,90.65C54.345,91.48 58.813,91.48 63.164,90.65L68.114,95.833C72.52,94.553 76.681,92.549 80.429,89.902L79.463,82.801C82.825,79.917 85.611,76.423 87.675,72.504L94.813,71.865C96.559,67.623 97.587,63.119 97.855,58.54L91.7,54.867C91.541,50.44 90.547,46.084 88.77,42.027L92.721,36.048C90.493,32.037 87.613,28.426 84.199,25.361L77.49,27.883C73.93,25.247 69.904,23.308 65.624,22.168L63.413,15.351ZM56.579,40.417C65.25,40.417 72.29,47.457 72.29,56.129C72.29,64.8 65.25,71.84 56.579,71.84C47.907,71.84 40.867,64.8 40.867,56.129C40.867,47.457 47.907,40.417 56.579,40.417Z" Height="20" Stretch="Fill" Width="20"/>
+		</Button>
 	</DockPanel>
 </UserControl>

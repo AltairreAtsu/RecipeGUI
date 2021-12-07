@@ -57,10 +57,15 @@
 			</Grid>
 		</Expander>
 		<StackPanel Orientation="Horizontal" Margin="20,20,20,0" HorizontalAlignment="Right">
+			<Label Content="Duration:" FontSize="20"/>
+			<TextBox x:Name="DurationField" Text="1.5" FontSize="20" Width="70" VerticalAlignment="Center" PreviewTextInput="DurationField_PreviewTextInput" DataObject.Pasting="DurationField_Pasting"/>
 			<Label Content="Output Item:" FontSize="20"/>
-		<local:SuggestionBox x:Name="OutputSuggestionField" Width="150" FontSize="20" VerticalAlignment="Center"/>
-		<Label Content="Count:" FontSize="20"/>
+			<local:SuggestionBox x:Name="OutputSuggestionField" Width="150" FontSize="20" VerticalAlignment="Center"/>
+			<Label Content="Count:" FontSize="20"/>
 			<TextBox x:Name="OutputItemCountField" FontSize="20" Width="100" VerticalAlignment="Center" PreviewTextInput="OutputItemCountField_PreviewTextInput" DataObject.Pasting="OutputItemCountField_Pasting"/>
+			<Button Margin="3,0,0,0" Height="30">
+				<Path Fill="White" Width="20" Height="20" Stretch="Fill" Data="M63.413,15.351C58.888,14.593 54.269,14.593 49.745,15.351L47.534,22.168C43.253,23.308 39.227,25.247 35.667,27.883L28.959,25.361C25.545,28.426 22.665,32.037 20.437,36.048L24.388,42.027C22.611,46.084 21.616,50.44 21.457,54.867L15.303,58.54C15.571,63.119 16.599,67.623 18.345,71.865L25.483,72.504C27.547,76.423 30.333,79.917 33.695,82.801L32.729,89.902C36.476,92.549 40.638,94.553 45.044,95.833L49.993,90.65C54.345,91.48 58.813,91.48 63.164,90.65L68.114,95.833C72.52,94.553 76.681,92.549 80.429,89.902L79.463,82.801C82.825,79.917 85.611,76.423 87.675,72.504L94.813,71.865C96.559,67.623 97.587,63.119 97.855,58.54L91.7,54.867C91.541,50.44 90.547,46.084 88.77,42.027L92.721,36.048C90.493,32.037 87.613,28.426 84.199,25.361L77.49,27.883C73.93,25.247 69.904,23.308 65.624,22.168L63.413,15.351ZM56.579,40.417C65.25,40.417 72.29,47.457 72.29,56.129C72.29,64.8 65.25,71.84 56.579,71.84C47.907,71.84 40.867,64.8 40.867,56.129C40.867,47.457 47.907,40.417 56.579,40.417Z"/>
+			</Button>
 		</StackPanel>
 	</StackPanel>
 </Window>
